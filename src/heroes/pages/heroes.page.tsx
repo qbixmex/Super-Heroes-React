@@ -1,4 +1,5 @@
-import '../../../node_modules/bootstrap-icons/font/bootstrap-icons.css';
+import { CreateHero } from '../components';
+import { heroes } from '../tests/fixtures/heroes';
 
 export function HeroesPage() {
   return (
@@ -16,60 +17,32 @@ export function HeroesPage() {
             </tr>
           </thead>
           <tbody>
-            <tr>
-              <td>Spiderman</td>
-              <td>Peter Parker</td>
-              <td>Marvel</td>
-              <td>
-                <button className='btn btn-info btn-sm'>
-                  <span className="bi bi-info"></span>
-                </button>
-                <button className='btn btn-warning btn-sm mx-2'>
-                  <span className="bi bi-pencil"></span>
-                </button>
-                <button className='btn btn-danger btn-sm'>
-                  <span className="bi bi-trash"></span>
-                </button>
-              </td>
-            </tr>
-            <tr>
-              <td>Ironman</td>
-              <td>Tony Stark</td>
-              <td>Marvel</td>
-              <td>
-                <button className='btn btn-info btn-sm'>
-                  <span className="bi bi-info"></span>
-                </button>
-                <button className='btn btn-warning btn-sm mx-2'>
-                  <span className="bi bi-pencil"></span>
-                </button>
-                <button className='btn btn-danger btn-sm'>
-                  <span className="bi bi-trash"></span>
-                </button>
-              </td>
-            </tr>
-            <tr>
-              <td>Captain America</td>
-              <td>Steve Rogers</td>
-              <td>Marvel</td>
-              <td>
-                <button className='btn btn-info btn-sm'>
-                  <span className="bi bi-info"></span>
-                </button>
-                <button className='btn btn-warning btn-sm mx-2'>
-                  <span className="bi bi-pencil"></span>
-                </button>
-                <button className='btn btn-danger btn-sm'>
-                  <span className="bi bi-trash"></span>
-                </button>
-              </td>
-            </tr>
+            {
+              heroes.map(({ id, heroName, realName, studio }) => {
+                return (
+                  <tr key={id}>
+                    <td>{heroName}</td>
+                    <td>{realName}</td>
+                    <td>{studio}</td>
+                    <td>
+                      <button className='btn btn-warning btn-sm mx-2'>
+                        <span className="bi bi-pencil"></span>
+                      </button>
+                      <button className='btn btn-danger btn-sm'>
+                        <span className="bi bi-trash"></span>
+                      </button>
+                    </td>
+                  </tr>
+                );
+              })
+            }
           </tbody>
         </table>
       </div>
-      <div className='add-button'>
+      <div className='add-button' data-bs-toggle="modal" data-bs-target="#form-modal">
         <span className="bi bi-plus"></span>
       </div>
+      <CreateHero title="Create Hero" />
     </>
   );
 }
