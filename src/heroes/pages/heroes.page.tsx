@@ -2,7 +2,7 @@ import { useState, useEffect } from 'react';
 import { Alert } from 'react-bootstrap';
 import { CreateHero, HeroesList } from '../components';
 import { Hero } from '../../interfaces';
-import { getHeroes } from '../../helpers';
+import { getHeroes } from '../helpers';
 
 export function HeroesPage() {
   const [heroes, setHeroes] = useState<Hero[]>([]);

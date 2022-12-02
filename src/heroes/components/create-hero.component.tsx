@@ -2,6 +2,7 @@ import { FormEvent } from 'react';
 import Button from 'react-bootstrap/esm/Button';
 import Modal from 'react-bootstrap/Modal';
 import { Hero } from '../../interfaces';
+import { createHero } from '../helpers';
 import { useForm, useDisplayModal } from '../hooks';
 
 type Props = { title: string };
@@ -17,9 +18,9 @@ export function CreateHero({ title }: Props) {
   const { formData, setInputChange, clearData } = useForm<Hero>(initialForm);
   const { heroName, realName, studio } = formData;
 
-  const handleSubmit = (event: FormEvent<HTMLFormElement>) => {
+  const handleSubmit = async (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault();
-    console.log(formData);
+    await createHero(formData);
     clearData();
     handleClose();
   };
