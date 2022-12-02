@@ -1,8 +1,11 @@
+import { BrowserRouter } from 'react-router-dom';
 import { AppRouter } from './router';
 
 function HeroesApp() {
   return (
-    <AppRouter />
+    <BrowserRouter>
+      <AppRouter />
+    </BrowserRouter>
   );
 }
 
