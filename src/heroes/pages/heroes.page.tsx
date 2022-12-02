@@ -1,3 +1,4 @@
+import { Button } from 'react-bootstrap';
 import { CreateHero } from '../components';
 import { heroes } from '../tests/fixtures/heroes';
 
@@ -25,12 +26,15 @@ export function HeroesPage() {
                     <td>{realName}</td>
                     <td>{studio}</td>
                     <td>
-                      <button type="button" className="btn btn-warning btn-sm mx-2">
+                      <Button variant="primary" size="sm">
+                        <span className="bi bi-eye" />
+                      </Button>
+                      <Button variant="warning" size="sm" className="mx-2">
                         <span className="bi bi-pencil" />
-                      </button>
-                      <button type="button" className="btn btn-danger btn-sm">
+                      </Button>
+                      <Button variant="danger" size="sm">
                         <span className="bi bi-trash" />
-                      </button>
+                      </Button>
                     </td>
                   </tr>
                 );
@@ -38,9 +42,6 @@ export function HeroesPage() {
             }
           </tbody>
         </table>
-      </div>
-      <div id="add-button" className="add-button" data-bs-toggle="modal" data-bs-target="#form-modal">
-        <span className="bi bi-plus" />
       </div>
       <CreateHero title="Create Hero" />
     </>

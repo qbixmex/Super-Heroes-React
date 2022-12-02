@@ -1,78 +1,91 @@
-import { FormEvent } from 'react';
+import { FormEvent, useState } from 'react';
+import Button from 'react-bootstrap/esm/Button';
+import Modal from 'react-bootstrap/Modal';
 
 type Props = { title: string };
 
 export function CreateHero({ title }: Props) {
-  const onSave = (event: FormEvent<HTMLFormElement>) => {
+  const [show, setShow] = useState(false);
+
+  const handleClose = () => setShow(false);
+  const handleOpen = () => setShow(true);
+
+  const handleSubmit = (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault();
-    console.log('Saving Hero ...');
+    // TODO: Submit Data
+    handleClose();
   };
 
   return (
-    <form onSubmit={onSave}>
-      <div
-        className="modal"
-        id="form-modal"
-        tabIndex={-1}
+    <>
+      <button
+        id="add-button"
+        type="button"
+        className="add-button"
+        onClick={handleOpen}
       >
-        <div className="modal-dialog modal-dialog-centered">
-          <div className="modal-content">
-            <div className="modal-header">
-              <h5 className="modal-title text-dark">{ title }</h5>
-              <button
-                type="button"
-                className="btn-close"
-                data-bs-dismiss="modal"
-                aria-label="Close"
+        <span className="bi bi-plus" />
+      </button>
+      <Modal centered show={show} onHide={handleClose}>
+        <Modal.Header closeButton>
+          <Modal.Title id="modalTitle" className="text-dark">{title}</Modal.Title>
+        </Modal.Header>
+        <form onSubmit={handleSubmit}>
+          <Modal.Body className="text-dark">
+            <div className="text-dark mb-3">
+              <label
+                id="heroNameLabel"
+                htmlFor="heroName"
+                className="form-label"
+              >
+                Hero Name
+              </label>
+              <input
+                name="heroName"
+                data-testid="heroName"
+                type="text"
+                className="form-control"
+                autoComplete="off"
               />
             </div>
-            <div className="modal-body">
-              <div className="text-dark mb-3">
-                <label id="heroNameLabel" htmlFor="heroName" className="form-label">Hero Name</label>
-                <input
-                  id="heroName"
-                  name="heroName"
-                  type="text"
-                  className="form-control"
-                  autoComplete="off"
-                />
-              </div>
-              <div className="text-dark mb-3">
-                <label id="realNameLabel" htmlFor="realName" className="form-label">Real Name</label>
-                <input
-                  id="realName"
-                  name="realName"
-                  type="text"
-                  className="form-control"
-                  autoComplete="off"
-                />
-              </div>
-              <div className="text-dark mb-3">
-                <label id="studioLabel" htmlFor="realName" className="form-label">Studio</label>
-                <input
-                  id="studio"
-                  name="studio"
-                  type="text"
-                  className="form-control"
-                  autoComplete="off"
-                />
-              </div>
-            </div>
-            <div className="modal-footer">
-              <button
-                type="button"
-                className="btn btn-primary"
-                data-bs-dismiss="modal"
+            <div className="text-dark mb-3">
+              <label
+                htmlFor="realName"
+                className="form-label"
               >
-                <span className="bi bi-x-lg" />
-              </button>
-              <button type="submit" className="btn btn-success">
-                <span className="bi bi-save" />
-              </button>
+                Real Name
+              </label>
+              <input
+                name="realName"
+                data-testid="realName"
+                type="text"
+                className="form-control"
+                autoComplete="off"
+              />
             </div>
-          </div>
-        </div>
-      </div>
-    </form>
+            <div className="text-dark mb-3">
+              <label id="studioLabel" htmlFor="realName" className="form-label">
+                Studio
+              </label>
+              <input
+                name="studio"
+                data-testid="studio"
+                type="text"
+                className="form-control"
+                autoComplete="off"
+              />
+            </div>
+          </Modal.Body>
+          <Modal.Footer>
+            <Button variant="primary" onClick={handleClose}>
+              <span className="bi bi-x-lg" />
+            </Button>
+            <Button type="submit" variant="success">
+              <span className="bi bi-save" />
+            </Button>
+          </Modal.Footer>
+        </form>
+      </Modal>
+    </>
   );
 }

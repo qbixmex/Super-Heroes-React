@@ -1,44 +1,59 @@
 import { describe, test } from 'vitest';
-import { render, screen } from '@testing-library/react';
+import { fireEvent, render, screen } from '@testing-library/react';
 import { CreateHero } from './create-hero.component';
 
 describe('<CreateHero />', () => {
   const headingTitle = 'Create Hero';
   let container: HTMLElement;
 
-  beforeAll(() => {
+  beforeEach(() => {
     container = render(<CreateHero title={ headingTitle } />).container;
   });
 
-  test('Should have a heading text', () => {
+  test('Should show modal on click add button', () => {
     //* 1) Arrange
-    const heading = screen.getByRole('heading', { level: 5 });
+    const addButton = container.querySelector('#add-button');
 
     //* 2) Act
-    // Example: Click a button
+    if (addButton) fireEvent.click(addButton);
+
+    const title = screen.getByText(headingTitle);
 
     //* 3) Expect
-    expect(heading).toBeDefined();
-    expect(heading).toHaveTextContent(headingTitle);
+    expect(title).toBeDefined();
   });
-  test('Should have labels before every inputs', () => {
-    render(<CreateHero title="Create Hero" />);
 
-    const heroNameLabel = container.querySelector('#heroNameLabel');
-    const realNameLabel = container.querySelector('#realNameLabel');
-    const studioLabel = container.querySelector('#studioLabel');
+  test('Should show have form labels', () => {
+    //* 1) Arrange
+    const addButton = container.querySelector('#add-button');
 
-    expect(heroNameLabel?.innerHTML).toBe('Hero Name');
-    expect(realNameLabel?.innerHTML).toBe('Real Name');
-    expect(studioLabel?.innerHTML).toBe('Studio');
+    //* 2) Act
+    if (addButton) fireEvent.click(addButton);
+
+    const heroNameLabel = screen.getByText('Hero Name');
+    const realNameLabel = screen.getByText('Real Name');
+    const studioLabel = screen.getByText('Studio');
+
+    //* 3) Expect
+    expect(heroNameLabel).toBeDefined();
+    expect(realNameLabel).toBeDefined();
+    expect(studioLabel).toBeDefined();
   });
-  test('Should have inputs defined', () => {
-    const heroName = container.querySelector('#heroName');
-    const realName = container.querySelector('#realName');
-    const studio = container.querySelector('#studio');
 
-    expect(heroName).toBeTruthy();
-    expect(realName).toBeTruthy();
-    expect(studio).toBeTruthy();
+  test('Should have form inputs', () => {
+    //* 1) Arrange
+    const addButton = container.querySelector('#add-button');
+
+    //* 2) Act
+    if (addButton) fireEvent.click(addButton);
+
+    const heroNameInput = screen.getByTestId('heroName');
+    const realNameInput = screen.getByTestId('realName');
+    const studioInput = screen.getByTestId('studio');
+
+    //* 3) Expect
+    expect(heroNameInput).toBeDefined();
+    expect(realNameInput).toBeTruthy();
+    expect(studioInput).toBeTruthy();
   });
 });
