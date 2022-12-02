@@ -1,8 +1,8 @@
 export interface Hero {
-  _id: string;
+  _id?: string;
   heroName: string;
   realName: string;
   studio: string;
-  createdAt: string;
-  updatedAt: string;
+  createdAt?: string;
+  updatedAt?: string;
 }

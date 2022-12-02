@@ -1,18 +1,26 @@
-import { FormEvent, useState } from 'react';
+import { FormEvent } from 'react';
 import Button from 'react-bootstrap/esm/Button';
 import Modal from 'react-bootstrap/Modal';
+import { Hero } from '../../interfaces';
+import { useForm, useDisplayModal } from '../hooks';
 
 type Props = { title: string };
 
-export function CreateHero({ title }: Props) {
-  const [show, setShow] = useState(false);
+const initialForm: Hero = {
+  heroName: '',
+  realName: '',
+  studio: '',
+};
 
-  const handleClose = () => setShow(false);
-  const handleOpen = () => setShow(true);
+export function CreateHero({ title }: Props) {
+  const { show, handleOpen, handleClose } = useDisplayModal();
+  const { formData, setInputChange, clearData } = useForm<Hero>(initialForm);
+  const { heroName, realName, studio } = formData;
 
   const handleSubmit = (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault();
-    // TODO: Submit Data
+    console.log(formData);
+    clearData();
     handleClose();
   };
 
@@ -46,6 +54,8 @@ export function CreateHero({ title }: Props) {
                 type="text"
                 className="form-control"
                 autoComplete="off"
+                onChange={setInputChange}
+                value={heroName}
               />
             </div>
             <div className="text-dark mb-3">
@@ -61,6 +71,8 @@ export function CreateHero({ title }: Props) {
                 type="text"
                 className="form-control"
                 autoComplete="off"
+                onChange={setInputChange}
+                value={realName}
               />
             </div>
             <div className="text-dark mb-3">
@@ -73,6 +85,8 @@ export function CreateHero({ title }: Props) {
                 type="text"
                 className="form-control"
                 autoComplete="off"
+                onChange={setInputChange}
+                value={studio}
               />
             </div>
           </Modal.Body>
