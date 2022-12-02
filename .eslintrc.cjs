@@ -23,6 +23,9 @@ module.exports = {
     '@typescript-eslint',
   ],
   rules: {
+    'no-console': 0,
+    'arrow-parens': 0,
+    '@typescript-eslint/no-unused-expressions': 0,
     'react/react-in-jsx-scope': 0,
     'import/prefer-default-export': 0,
     'arrow-body-style': 0,

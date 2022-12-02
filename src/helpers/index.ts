@@ -1,0 +1,1 @@
+export { getHeroes } from './getHeroesAPI';
