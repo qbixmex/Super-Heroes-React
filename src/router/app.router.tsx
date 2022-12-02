@@ -3,13 +3,13 @@ import { HeroesRoutes } from '../heroes/routes';
 import { AuthRoutes } from '../auth/routes';
 
 export function AppRouter() {
-  const status = 'authenticated';
+  // const status = 'authenticated';
 
   return (
     <Routes>
-      <Route path="/*" element={ <HeroesRoutes /> }></Route>
-      <Route path="/auth/*" element={ <AuthRoutes /> }></Route> 
-      <Route path="/*" element={ <Navigate to='/auth/login' /> } />
+      <Route path="/*" element={<HeroesRoutes />} />
+      <Route path="/auth/*" element={<AuthRoutes />} />
+      <Route path="/*" element={<Navigate to="/auth/login" />} />
     </Routes>
-  )
+  );
 }

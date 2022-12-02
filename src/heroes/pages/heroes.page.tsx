@@ -25,11 +25,11 @@ export function HeroesPage() {
                     <td>{realName}</td>
                     <td>{studio}</td>
                     <td>
-                      <button className='btn btn-warning btn-sm mx-2'>
-                        <span className="bi bi-pencil"></span>
+                      <button type="button" className="btn btn-warning btn-sm mx-2">
+                        <span className="bi bi-pencil" />
                       </button>
-                      <button className='btn btn-danger btn-sm'>
-                        <span className="bi bi-trash"></span>
+                      <button type="button" className="btn btn-danger btn-sm">
+                        <span className="bi bi-trash" />
                       </button>
                     </td>
                   </tr>
@@ -39,8 +39,8 @@ export function HeroesPage() {
           </tbody>
         </table>
       </div>
-      <div className='add-button' data-bs-toggle="modal" data-bs-target="#form-modal">
-        <span className="bi bi-plus"></span>
+      <div className="add-button" data-bs-toggle="modal" data-bs-target="#form-modal">
+        <span className="bi bi-plus" />
       </div>
       <CreateHero title="Create Hero" />
     </>

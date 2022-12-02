@@ -1,0 +1,33 @@
+module.exports = {
+  env: {
+    browser: true,
+    es2021: true,
+  },
+  extends: [
+    'airbnb',
+    'airbnb-typescript',
+    'airbnb/hooks',
+    'plugin:react/recommended',
+    'plugin:@typescript-eslint/recommended',
+  ],
+  overrides: [
+  ],
+  parser: '@typescript-eslint/parser',
+  parserOptions: {
+    ecmaVersion: 'latest',
+    sourceType: 'module',
+    project: './tsconfig.json',
+  },
+  plugins: [
+    'react',
+    '@typescript-eslint',
+  ],
+  rules: {
+    'react/react-in-jsx-scope': 0,
+    'import/prefer-default-export': 0,
+    'arrow-body-style': 0,
+    'object-curly-newline': 0,
+    'react/jsx-curly-spacing': 0,
+    'jsx-a11y/label-has-associated-control': 0,
+  },
+};
