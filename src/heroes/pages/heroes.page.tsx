@@ -39,7 +39,7 @@ export function HeroesPage() {
           </tbody>
         </table>
       </div>
-      <div className="add-button" data-bs-toggle="modal" data-bs-target="#form-modal">
+      <div id="add-button" className="add-button" data-bs-toggle="modal" data-bs-target="#form-modal">
         <span className="bi bi-plus" />
       </div>
       <CreateHero title="Create Hero" />
