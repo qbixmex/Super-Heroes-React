@@ -12,7 +12,9 @@
 > yarn dev
 ```
 
-## 3. Run Test (Pending)
+## 3. Run Test
+
+__Note: We are using Vitest with Testing Library__
 
 ```bash
 > yarn test
