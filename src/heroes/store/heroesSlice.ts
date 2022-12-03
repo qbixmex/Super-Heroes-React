@@ -25,7 +25,15 @@ export const heroesSlice = createSlice({
       state.isLoading = false;
       state.heroes = action.payload.heroes;
     },
+    setActiveHero: (state, action: PayloadAction<HeroesState>) => {
+      state.activeHero = action.payload.activeHero;
+    },
+    clearActiveHero: (state) => {
+      state.activeHero = null;
+    },
   },
 });
 
-export const { startLoadingHeroes, setHeroes } = heroesSlice.actions;
+export const {
+  startLoadingHeroes, setHeroes, setActiveHero, clearActiveHero,
+} = heroesSlice.actions;

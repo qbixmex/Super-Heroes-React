@@ -1,9 +1,12 @@
 import { FormEvent } from 'react';
+// import { useSelector } from 'react-redux';
 import Button from 'react-bootstrap/esm/Button';
 import Modal from 'react-bootstrap/Modal';
+
+import { useForm, useDisplayModal } from '../hooks';
+// import { RootState } from '../store';
 import { Hero } from '../../interfaces';
 import { createHero } from '../api';
-import { useForm, useDisplayModal } from '../hooks';
 
 type Props = { title: string };
 
@@ -14,7 +17,9 @@ const initialForm: Hero = {
 };
 
 export function CreateHero({ title }: Props) {
-  const { show, handleOpen, handleClose } = useDisplayModal();
+  // const heroes = useSelector((state: RootState) => state.heroes);
+
+  const { show, handleClose, handleOnClick } = useDisplayModal(initialForm);
   const { formData, setInputChange, clearData } = useForm<Hero>(initialForm);
   const { heroName, realName, studio } = formData;
 
@@ -31,7 +36,7 @@ export function CreateHero({ title }: Props) {
         id="add-button"
         type="button"
         className="add-button"
-        onClick={handleOpen}
+        onClick={handleOnClick}
       >
         <span className="bi bi-plus" />
       </button>
