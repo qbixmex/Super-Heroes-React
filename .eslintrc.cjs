@@ -33,5 +33,6 @@ module.exports = {
     'react/jsx-curly-spacing': 0,
     'jsx-a11y/label-has-associated-control': 0,
     'no-param-reassign': 0,
+    '@typescript-eslint/no-non-null-assertion': 0,
   },
 };
