@@ -7,10 +7,25 @@ import { getHeroes } from '../helpers';
 export function HeroesPage() {
   const [heroes, setHeroes] = useState<Hero[]>([]);
 
+  const fetchingHeroes = async () => {
+    try {
+      const data = await getHeroes();
+
+      if (data.ok) {
+        localStorage.setItem('heroes', JSON.stringify(data.heroes));
+      }
+    } catch (error) {
+      console.error(error);
+    }
+  };
+
   useEffect(() => {
-    getHeroes()
-      .then(data => (data.ok) && setHeroes(data.heroes))
-      .catch(console.error);
+    const localHeroes = localStorage.getItem('heroes');
+    if (!localHeroes) {
+      fetchingHeroes();
+    } else {
+      setHeroes(JSON.parse(localHeroes));
+    }
   }, []);
 
   return (
