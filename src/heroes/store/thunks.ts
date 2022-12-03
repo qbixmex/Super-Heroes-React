@@ -1,6 +1,5 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
 import { Dispatch } from 'redux';
-import { Hero } from '../../interfaces';
 import { getHeroes } from '../api';
 import { startLoadingHeroes, setHeroes } from './heroesSlice';
 import { RootState as GetState } from './store';

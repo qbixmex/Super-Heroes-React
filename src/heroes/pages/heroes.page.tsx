@@ -24,7 +24,7 @@ export function HeroesPage() {
               <Spinner variant="primary" />
             </div>
           ) : (
-            <HeroesList heroes={heroes} />
+            <HeroesList heroes={heroes || []} />
           )
         }
       </div>

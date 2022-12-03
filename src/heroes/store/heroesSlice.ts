@@ -3,7 +3,7 @@ import type { PayloadAction } from '@reduxjs/toolkit';
 import { Hero } from '../../interfaces';
 
 export type HeroesState = {
-  heroes: Hero[];
+  heroes?: Hero[];
   isLoading?: boolean;
   activeHero?: null | Hero;
 };
