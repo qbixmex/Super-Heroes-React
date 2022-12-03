@@ -5,7 +5,18 @@ type HeroData = {
   hero: Hero;
 };
 
-export async function createHero(formData: Hero): Promise<HeroData> {
+export interface HeroError {
+  value: string,
+  msg: string,
+  param: string,
+  location: string,
+}
+
+export interface ApiError {
+  errors: HeroError[],
+}
+
+export async function createHero(formData: Hero): Promise<HeroData | void> {
   const response = await fetch('http://localhost:3000/api/v1/heroes', {
     method: 'POST',
     headers: {
@@ -13,6 +24,12 @@ export async function createHero(formData: Hero): Promise<HeroData> {
     },
     body: JSON.stringify(formData),
   });
+
+  if (!response.ok) {
+    const error = await response.json();
+    throw new Error(error.errors[0].msg);
+  }
+
   const data = await response.json() as HeroData;
   return data;
 }

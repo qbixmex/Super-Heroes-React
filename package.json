@@ -1,7 +1,7 @@
 {
   "name": "super_heroes",
   "private": true,
-  "version": "1.3.3",
+  "version": "1.3.4",
   "type": "module",
   "scripts": {
     "dev": "vite",
@@ -20,7 +20,8 @@
     "react-dom": "^18.2.0",
     "react-redux": "^8.0.5",
     "react-router-dom": "^6.4.4",
-    "redux": "^4.2.0"
+    "redux": "^4.2.0",
+    "sweetalert2": "^11.6.15"
   },
   "devDependencies": {
     "@testing-library/jest-dom": "^5.16.5",

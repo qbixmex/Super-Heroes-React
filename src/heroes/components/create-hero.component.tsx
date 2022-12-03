@@ -1,12 +1,10 @@
 import { FormEvent } from 'react';
-// import { useSelector } from 'react-redux';
 import Button from 'react-bootstrap/esm/Button';
 import Modal from 'react-bootstrap/Modal';
 
-import { useForm, useDisplayModal } from '../hooks';
-// import { RootState } from '../store';
+import { useForm, useDisplayModal, useAppDispatch } from '../hooks';
+import { startSavingHero } from '../store';
 import { Hero } from '../../interfaces';
-import { createHero } from '../api';
 
 type Props = { title: string };
 
@@ -17,15 +15,15 @@ const initialForm: Hero = {
 };
 
 export function CreateHero({ title }: Props) {
-  // const heroes = useSelector((state: RootState) => state.heroes);
+  const dispatch = useAppDispatch();
 
-  const { show, handleClose, handleOnClick } = useDisplayModal(initialForm);
+  const { show, handleClose, handleOnClick } = useDisplayModal();
   const { formData, setInputChange, clearData } = useForm<Hero>(initialForm);
   const { heroName, realName, studio } = formData;
 
   const handleSubmit = async (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault();
-    await createHero(formData);
+    dispatch(startSavingHero(formData));
     clearData();
     handleClose();
   };

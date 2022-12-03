@@ -31,9 +31,21 @@ export const heroesSlice = createSlice({
     clearActiveHero: (state) => {
       state.activeHero = null;
     },
+    updateHeroes: (state, action: PayloadAction<Hero>) => {
+      state.heroes?.push({
+        _id: action.payload._id,
+        heroName: action.payload.heroName,
+        realName: action.payload.realName,
+        studio: action.payload.studio,
+        createdAt: action.payload.createdAt,
+        updatedAt: action.payload.updatedAt,
+      });
+      state.activeHero = null;
+    },
   },
 });
 
 export const {
   startLoadingHeroes, setHeroes, setActiveHero, clearActiveHero,
+  updateHeroes,
 } = heroesSlice.actions;

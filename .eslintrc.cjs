@@ -34,5 +34,7 @@ module.exports = {
     'jsx-a11y/label-has-associated-control': 0,
     'no-param-reassign': 0,
     '@typescript-eslint/no-non-null-assertion': 0,
+    'no-underscore-dangle': 0,
+    '@typescript-eslint/naming-convention': 0,
   },
 };
