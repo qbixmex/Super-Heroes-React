@@ -1,4 +1,4 @@
-import { Button } from 'react-bootstrap';
+import { Alert, Button } from 'react-bootstrap';
 import { Hero } from '../../interfaces';
 
 type Props = {
@@ -6,6 +6,14 @@ type Props = {
 };
 
 export function HeroesList({ heroes }: Props) {
+  if (heroes.length === 0) {
+    return (
+      <Alert variant="warning" className="text-center">
+        <b>Theres no heroes yet!</b>
+      </Alert>
+    );
+  }
+
   return (
     <table className="table table-dark table-hover table-striped table-bordered">
       <thead>

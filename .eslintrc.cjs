@@ -32,5 +32,6 @@ module.exports = {
     'object-curly-newline': 0,
     'react/jsx-curly-spacing': 0,
     'jsx-a11y/label-has-associated-control': 0,
+    'no-param-reassign': 0,
   },
 };

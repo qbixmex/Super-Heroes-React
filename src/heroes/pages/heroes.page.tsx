@@ -1,32 +1,17 @@
-import { useState, useEffect } from 'react';
-import { Alert } from 'react-bootstrap';
+import { useEffect } from 'react';
+import { Spinner } from 'react-bootstrap';
+import { useSelector } from 'react-redux';
 import { CreateHero, HeroesList } from '../components';
-import { Hero } from '../../interfaces';
-import { getHeroes } from '../helpers';
+import { RootState, fetchHeroes } from '../store';
+import { useAppDispatch } from '../hooks';
 
 export function HeroesPage() {
-  const [heroes, setHeroes] = useState<Hero[]>([]);
-
-  const fetchingHeroes = async () => {
-    try {
-      const data = await getHeroes();
-
-      if (data.ok) {
-        localStorage.setItem('heroes', JSON.stringify(data.heroes));
-      }
-    } catch (error) {
-      console.error(error);
-    }
-  };
+  const dispatch = useAppDispatch();
+  const { heroes, isLoading } = useSelector((state: RootState) => state.heroes);
 
   useEffect(() => {
-    const localHeroes = localStorage.getItem('heroes');
-    if (!localHeroes) {
-      fetchingHeroes();
-    } else {
-      setHeroes(JSON.parse(localHeroes));
-    }
-  }, []);
+    dispatch(fetchHeroes());
+  }, [dispatch]);
 
   return (
     <>
@@ -34,13 +19,13 @@ export function HeroesPage() {
         <h1 className="mt-2 skyblue display-1 text-center">Heroes</h1>
         <hr />
         {
-          (heroes.length !== 0)
-            ? <HeroesList heroes={ heroes } />
-            : (
-              <Alert className="text-center fw-bold" variant="warning">
-                No heroes created yet!
-              </Alert>
-            )
+          (isLoading) ? (
+            <div className="text-center mt-4">
+              <Spinner variant="primary" />
+            </div>
+          ) : (
+            <HeroesList heroes={heroes} />
+          )
         }
       </div>
       <CreateHero title="Create Hero" />

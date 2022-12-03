@@ -2,7 +2,7 @@ import { FormEvent } from 'react';
 import Button from 'react-bootstrap/esm/Button';
 import Modal from 'react-bootstrap/Modal';
 import { Hero } from '../../interfaces';
-import { createHero } from '../helpers';
+import { createHero } from '../api';
 import { useForm, useDisplayModal } from '../hooks';
 
 type Props = { title: string };
