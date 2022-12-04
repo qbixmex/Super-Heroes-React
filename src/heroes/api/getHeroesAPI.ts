@@ -7,7 +7,7 @@ type HeroesData = {
 };
 
 export const getHeroes = async (): Promise<HeroesData> => {
-  const response = await fetch('http://localhost:3000/api/v1/heroes');
+  const response = await fetch('http://localhost:3000/api/v1/heroes?limit=100');
 
   if (!response) {
     throw new Error('Data could not be fetched!');
