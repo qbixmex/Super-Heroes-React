@@ -2,7 +2,7 @@ import { Alert, Button } from 'react-bootstrap';
 import Swal from 'sweetalert2';
 import { Hero } from '../../interfaces';
 import { useAppDispatch } from '../hooks';
-import { startDeletingHero, onSetActiveHero } from '../store';
+import { startDeletingHero, onSetActiveHero, onSetShowHeroProfile } from '../store';
 
 type Props = {
   heroes: Hero[],
@@ -12,6 +12,10 @@ export function HeroesList({ heroes }: Props) {
   const dispatch = useAppDispatch();
 
   const handleShowHero = (hero: Hero) => {
+    dispatch(onSetActiveHero({ activeHero: hero }));
+    dispatch(onSetShowHeroProfile());
+  };
+  const handleEditHero = (hero: Hero) => {
     dispatch(onSetActiveHero({ activeHero: hero }));
   };
 
@@ -63,10 +67,19 @@ export function HeroesList({ heroes }: Props) {
               <td>{realName}</td>
               <td>{studio}</td>
               <td>
-                <Button variant="primary" size="sm" onClick={ () => handleShowHero(hero) }>
+                <Button
+                  variant="primary"
+                  size="sm"
+                  onClick={ () => handleShowHero(hero) }
+                >
                   <span className="bi bi-eye" />
                 </Button>
-                <Button variant="warning" size="sm" className="mx-2">
+                <Button
+                  variant="warning"
+                  size="sm"
+                  className="mx-2"
+                  onClick={ () => handleEditHero(hero) }
+                >
                   <span className="bi bi-pencil" />
                 </Button>
                 <Button

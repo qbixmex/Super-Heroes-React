@@ -5,12 +5,14 @@ import { Hero } from '../../interfaces';
 export type HeroesState = {
   heroes?: Hero[];
   isLoading?: boolean;
+  showProfile?: boolean;
   activeHero?: null | Hero;
 };
 
 const initialState: HeroesState = {
   heroes: [],
   isLoading: false,
+  showProfile: false,
   activeHero: null,
 };
 
@@ -28,10 +30,13 @@ export const heroesSlice = createSlice({
     onSetActiveHero: (state, action: PayloadAction<HeroesState>) => {
       state.activeHero = action.payload.activeHero;
     },
+    onSetShowHeroProfile: (state) => {
+      state.showProfile = !state.showProfile;
+    },
     onClearActiveHero: (state) => {
       state.activeHero = null;
     },
-    onUpdateHeroes: (state, action: PayloadAction<Hero>) => {
+    onCreateHero: (state, action: PayloadAction<Hero>) => {
       state.heroes?.push({
         _id: action.payload._id,
         heroName: action.payload.heroName,
@@ -39,6 +44,15 @@ export const heroesSlice = createSlice({
         studio: action.payload.studio,
         createdAt: action.payload.createdAt,
         updatedAt: action.payload.updatedAt,
+      });
+      state.activeHero = null;
+    },
+    onUpdateHero: (state, action: PayloadAction<{ updatedHero: Hero }>) => {
+      state.heroes = state.heroes?.map(hero => {
+        if (hero._id === action.payload.updatedHero._id) {
+          return action.payload.updatedHero;
+        }
+        return hero;
       });
       state.activeHero = null;
     },
@@ -51,6 +65,6 @@ export const heroesSlice = createSlice({
 });
 
 export const {
-  onStartLoadingHeroes, onSetHeroes, onSetActiveHero, onClearActiveHero,
-  onUpdateHeroes, onDeleteHero,
+  onStartLoadingHeroes, onSetHeroes, onSetActiveHero, onSetShowHeroProfile,
+  onClearActiveHero, onCreateHero, onUpdateHero, onDeleteHero,
 } = heroesSlice.actions;

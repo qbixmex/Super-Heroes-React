@@ -5,9 +5,9 @@ type HeroData = {
   hero: Hero;
 };
 
-export async function createHero(formData: Hero): Promise<HeroData | void> {
-  const response = await fetch('http://localhost:3000/api/v1/heroes', {
-    method: 'POST',
+export async function updateHero(formData: Hero): Promise<HeroData | void> {
+  const response = await fetch(`http://localhost:3000/api/v1/heroes/${formData._id}`, {
+    method: 'PATCH',
     headers: {
       'Content-Type': 'application/json',
     },

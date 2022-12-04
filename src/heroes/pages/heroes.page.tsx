@@ -1,13 +1,12 @@
-import { useEffect, useState } from 'react';
+import { useEffect } from 'react';
 import { Spinner } from 'react-bootstrap';
-import { useSelector } from 'react-redux';
-import { CreateHero, ShowHero, HeroesList } from '../components';
+import { FormModal, ShowHero, HeroesList } from '../components';
 import { RootState, fetchHeroes } from '../store';
-import { useAppDispatch } from '../hooks';
+import { useAppDispatch, useAppSelector } from '../hooks';
 
 export function HeroesPage() {
   const dispatch = useAppDispatch();
-  const { heroes, isLoading } = useSelector((state: RootState) => state.heroes);
+  const { heroes, isLoading } = useAppSelector((state: RootState) => state.heroes);
 
   useEffect(() => {
     dispatch(fetchHeroes());
@@ -28,7 +27,7 @@ export function HeroesPage() {
           )
         }
       </div>
-      <CreateHero title="Create Hero" />
+      <FormModal />
       <ShowHero />
     </>
   );

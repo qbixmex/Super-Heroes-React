@@ -1,17 +1,18 @@
+import { useState, useEffect } from 'react';
 import Button from 'react-bootstrap/esm/Button';
 import Modal from 'react-bootstrap/Modal';
-import { useState, useEffect } from 'react';
 import { useAppDispatch, useAppSelector } from '../hooks';
-import { onClearActiveHero } from '../store';
+import { onSetShowHeroProfile, onClearActiveHero } from '../store';
 
 export function ShowHero() {
   const dispatch = useAppDispatch();
-  const { activeHero } = useAppSelector((state) => state.heroes);
+  const { activeHero, showProfile } = useAppSelector((state) => state.heroes);
   const [show, setShow] = useState<boolean>(false);
 
   const closeModal = () => {
     setShow(false);
     dispatch(onClearActiveHero());
+    dispatch(onSetShowHeroProfile());
   };
 
   const openModal = () => {
@@ -19,9 +20,8 @@ export function ShowHero() {
   };
 
   useEffect(() => {
-    (activeHero) && openModal();
-    return () => setShow(false);
-  }, [activeHero]);
+    (showProfile) && openModal();
+  }, [showProfile]);
 
   return (
     <Modal centered show={show} onHide={closeModal}>

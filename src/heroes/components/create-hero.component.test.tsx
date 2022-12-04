@@ -1,6 +1,6 @@
 import { describe, test } from 'vitest';
 import { fireEvent, render, screen } from '@testing-library/react';
-import { CreateHero } from './create-hero.component';
+import { CreateHero } from './form-modal.component';
 
 describe('<CreateHero />', () => {
   const headingTitle = 'Create Hero';

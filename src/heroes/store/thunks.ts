@@ -1,8 +1,10 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
 import { Dispatch } from 'redux';
 import Swal from 'sweetalert2';
-import { getHeroes, createHero, deleteHero } from '../api';
-import { onStartLoadingHeroes, onSetHeroes, onUpdateHeroes, onDeleteHero } from './heroesSlice';
+import { getHeroes, createHero, updateHero, deleteHero } from '../api';
+import {
+  onStartLoadingHeroes, onSetHeroes, onCreateHero, onUpdateHero, onDeleteHero,
+} from './heroesSlice';
 import { RootState as GetState } from './store';
 import { Hero } from '../../interfaces';
 
@@ -33,13 +35,37 @@ export const startSavingHero = (hero: Hero) => {
       // Call API Endpoint
       const data = await createHero(hero);
       if (data?.hero) {
-        dispatch(onUpdateHeroes(data.hero));
+        dispatch(onCreateHero(data.hero));
         const { heroes } = getState().heroes;
         localStorage.setItem('heroes', JSON.stringify(heroes));
         Swal.fire({
           position: 'center',
           title: 'OK',
           html: 'Hero created successfully',
+          icon: 'success',
+          showConfirmButton: false,
+          timer: 1500,
+        });
+      }
+    } catch (error) {
+      Swal.fire('Error', String(error), 'error');
+    }
+  };
+};
+
+export const startUpdatingHero = (hero: Hero) => {
+  return async (dispatch: Dispatch, getState: () => GetState) => {
+    try {
+      // Call API Endpoint
+      const data = await updateHero(hero);
+      if (data?.hero) {
+        dispatch(onUpdateHero({ updatedHero: data.hero }));
+        const { heroes } = getState().heroes;
+        localStorage.setItem('heroes', JSON.stringify(heroes));
+        Swal.fire({
+          position: 'center',
+          title: 'OK',
+          html: 'Hero updated successfully',
           icon: 'success',
           showConfirmButton: false,
           timer: 1500,

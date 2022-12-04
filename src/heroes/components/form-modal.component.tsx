@@ -1,12 +1,12 @@
-import { FormEvent } from 'react';
+import { FormEvent, useState, useEffect } from 'react';
 import Button from 'react-bootstrap/esm/Button';
 import Modal from 'react-bootstrap/Modal';
 
-import { useForm, useDisplayModal, useAppDispatch } from '../hooks';
-import { startSavingHero } from '../store';
+import { useAppDispatch, useAppSelector, useForm } from '../hooks';
+import {
+  startSavingHero, RootState, onClearActiveHero, startUpdatingHero,
+} from '../store';
 import { Hero } from '../../interfaces';
-
-type Props = { title: string };
 
 const initialForm: Hero = {
   heroName: '',
@@ -14,18 +14,40 @@ const initialForm: Hero = {
   studio: '',
 };
 
-export function CreateHero({ title }: Props) {
+export function FormModal() {
   const dispatch = useAppDispatch();
+  const { activeHero, showProfile } = useAppSelector((state: RootState) => state.heroes);
+  const [show, setShow] = useState<boolean>(false);
 
-  const { show, closeModal, openModal } = useDisplayModal();
-  const { formData, setInputChange, clearData } = useForm<Hero>(initialForm);
+  const { formData, setFormData, setInputChange, clearData } = useForm<Hero>(initialForm);
   const { heroName, realName, studio } = formData;
+
+  useEffect(() => {
+    if (activeHero && !showProfile) {
+      setFormData({ ...activeHero });
+      setShow(true);
+    }
+  }, [activeHero, setFormData, showProfile]);
+
+  const closeModal = () => {
+    (activeHero) && dispatch(onClearActiveHero());
+    clearData();
+    setShow(false);
+  };
+
+  const openModal = () => {
+    setShow(true);
+  };
 
   const handleSubmit = async (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault();
-    dispatch(startSavingHero(formData));
+    if (activeHero === null) {
+      dispatch(startSavingHero(formData));
+    } else {
+      dispatch(startUpdatingHero(formData));
+    }
     clearData();
-    closeModal();
+    setShow(false);
   };
 
   return (
@@ -40,7 +62,9 @@ export function CreateHero({ title }: Props) {
       </button>
       <Modal centered show={show} onHide={closeModal}>
         <Modal.Header closeButton>
-          <Modal.Title id="modalTitle" className="text-dark">{title}</Modal.Title>
+          <Modal.Title id="modalTitle" className="text-dark">
+            { (!activeHero) ? 'Create Hero' : 'Update Hero' }
+          </Modal.Title>
         </Modal.Header>
         <form onSubmit={handleSubmit}>
           <Modal.Body className="text-dark">

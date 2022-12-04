@@ -18,6 +18,7 @@ export function useForm<T>(initialForm: T) {
   return {
     ...formData,
     formData,
+    setFormData,
     setInputChange,
     clearData,
   };
