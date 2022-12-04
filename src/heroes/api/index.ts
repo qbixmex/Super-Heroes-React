@@ -1,2 +1,3 @@
-export { getHeroes } from './getHeroesAPI';
-export { createHero } from './createHeroAPI';
+export * from './getHeroesAPI';
+export * from './createHeroAPI';
+export * from './deleteHeroAPI';

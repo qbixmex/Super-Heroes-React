@@ -6,3 +6,8 @@ export interface Hero {
   createdAt?: string;
   updatedAt?: string;
 }
+
+export interface HeroData {
+  ok: boolean;
+  hero: Hero;
+}

@@ -1,10 +1,10 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
 import { Dispatch } from 'redux';
 import Swal from 'sweetalert2';
-import { getHeroes, createHero } from '../api';
-import { startLoadingHeroes, setHeroes, updateHeroes } from './heroesSlice';
+import { getHeroes, createHero, deleteHero } from '../api';
+import { startLoadingHeroes, setHeroes, updateHeroes, onDeleteHero } from './heroesSlice';
 import { RootState as GetState } from './store';
-import { ApiError, Hero } from '../../interfaces';
+import { Hero } from '../../interfaces';
 
 export const fetchHeroes = () => {
   return async (dispatch: Dispatch, _getState: () => GetState) => {
@@ -36,10 +36,41 @@ export const startSavingHero = (hero: Hero) => {
         dispatch(updateHeroes(data.hero));
         const { heroes } = getState().heroes;
         localStorage.setItem('heroes', JSON.stringify(heroes));
-        Swal.fire('OK', 'Hero created successfully', 'success');
+        Swal.fire({
+          position: 'center',
+          title: 'OK',
+          html: 'Hero created successfully',
+          icon: 'success',
+          showConfirmButton: false,
+          timer: 1500,
+        });
       }
     } catch (error) {
-      Swal.fire('OK', String(error), 'error');
+      Swal.fire('Error', String(error), 'error');
+    }
+  };
+};
+
+export const startDeletingHero = (id: string) => {
+  return async (dispatch: Dispatch, getState: () => GetState) => {
+    try {
+      // Call API Endpoint
+      const data = await deleteHero(id);
+      if (data?.ok) {
+        dispatch(onDeleteHero({ id }));
+        const { heroes } = getState().heroes;
+        localStorage.setItem('heroes', JSON.stringify(heroes));
+        Swal.fire({
+          position: 'center',
+          title: 'OK',
+          html: 'Hero deleted successfully',
+          icon: 'success',
+          showConfirmButton: false,
+          timer: 1500,
+        });
+      }
+    } catch (error) {
+      Swal.fire('Error', String(error), 'error');
     }
   };
 };

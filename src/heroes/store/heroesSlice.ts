@@ -42,10 +42,15 @@ export const heroesSlice = createSlice({
       });
       state.activeHero = null;
     },
+    onDeleteHero: (state, action: PayloadAction<{ id: string }>) => {
+      state.heroes = state.heroes?.filter(hero => {
+        return hero._id !== action.payload.id;
+      });
+    },
   },
 });
 
 export const {
   startLoadingHeroes, setHeroes, setActiveHero, clearActiveHero,
-  updateHeroes,
+  updateHeroes, onDeleteHero,
 } = heroesSlice.actions;
