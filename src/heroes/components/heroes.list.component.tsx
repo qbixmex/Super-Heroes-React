@@ -2,14 +2,19 @@ import { Alert, Button } from 'react-bootstrap';
 import Swal from 'sweetalert2';
 import { Hero } from '../../interfaces';
 import { useAppDispatch } from '../hooks';
-import { startDeletingHero } from '../store';
+import { startDeletingHero, onSetActiveHero } from '../store';
 
 type Props = {
-  heroes: Hero[]
+  heroes: Hero[],
 };
 
 export function HeroesList({ heroes }: Props) {
   const dispatch = useAppDispatch();
+
+  const handleShowHero = (hero: Hero) => {
+    dispatch(onSetActiveHero({ activeHero: hero }));
+  };
+
   const handleDelete = (id: string) => {
     Swal.fire({
       title: 'Are you sure?',
@@ -50,14 +55,15 @@ export function HeroesList({ heroes }: Props) {
         </tr>
       </thead>
       <tbody>
-        {heroes.map(({ _id, heroName, realName, studio }) => {
+        {heroes.map(hero => {
+          const { _id, heroName, realName, studio } = hero;
           return (
             <tr key={_id}>
               <td>{heroName}</td>
               <td>{realName}</td>
               <td>{studio}</td>
               <td>
-                <Button variant="primary" size="sm">
+                <Button variant="primary" size="sm" onClick={ () => handleShowHero(hero) }>
                   <span className="bi bi-eye" />
                 </Button>
                 <Button variant="warning" size="sm" className="mx-2">

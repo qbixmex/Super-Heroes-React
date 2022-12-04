@@ -9,9 +9,9 @@ import { store } from './heroes/store/store';
 import './global.css';
 
 ReactDOM.createRoot(document.getElementById('root') as HTMLElement).render(
-  // <React.StrictMode>
-  <Provider store={store}>
-    <HeroesApp />
-  </Provider>,
-  // </React.StrictMode>,
+  <React.StrictMode>
+    <Provider store={store}>
+      <HeroesApp />
+    </Provider>
+  </React.StrictMode>,
 );

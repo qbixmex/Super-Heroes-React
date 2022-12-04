@@ -2,24 +2,24 @@
 import { Dispatch } from 'redux';
 import Swal from 'sweetalert2';
 import { getHeroes, createHero, deleteHero } from '../api';
-import { startLoadingHeroes, setHeroes, updateHeroes, onDeleteHero } from './heroesSlice';
+import { onStartLoadingHeroes, onSetHeroes, onUpdateHeroes, onDeleteHero } from './heroesSlice';
 import { RootState as GetState } from './store';
 import { Hero } from '../../interfaces';
 
 export const fetchHeroes = () => {
   return async (dispatch: Dispatch, _getState: () => GetState) => {
     try {
-      dispatch(startLoadingHeroes());
+      dispatch(onStartLoadingHeroes());
 
       const localHeroes = localStorage.getItem('heroes');
 
       if (!localHeroes) {
         const data = await getHeroes();
         const heroes = (data.ok) ? data.heroes : [];
-        dispatch(setHeroes({ heroes }));
+        dispatch(onSetHeroes({ heroes }));
         localStorage.setItem('heroes', JSON.stringify(heroes));
       } else {
-        dispatch(setHeroes({ heroes: JSON.parse(localHeroes) }));
+        dispatch(onSetHeroes({ heroes: JSON.parse(localHeroes) }));
       }
     } catch (error) {
       console.error(error);
@@ -33,7 +33,7 @@ export const startSavingHero = (hero: Hero) => {
       // Call API Endpoint
       const data = await createHero(hero);
       if (data?.hero) {
-        dispatch(updateHeroes(data.hero));
+        dispatch(onUpdateHeroes(data.hero));
         const { heroes } = getState().heroes;
         localStorage.setItem('heroes', JSON.stringify(heroes));
         Swal.fire({

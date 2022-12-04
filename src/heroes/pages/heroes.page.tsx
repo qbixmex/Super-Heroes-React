@@ -1,7 +1,7 @@
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import { Spinner } from 'react-bootstrap';
 import { useSelector } from 'react-redux';
-import { CreateHero, HeroesList } from '../components';
+import { CreateHero, ShowHero, HeroesList } from '../components';
 import { RootState, fetchHeroes } from '../store';
 import { useAppDispatch } from '../hooks';
 
@@ -29,6 +29,7 @@ export function HeroesPage() {
         }
       </div>
       <CreateHero title="Create Hero" />
+      <ShowHero />
     </>
   );
 }

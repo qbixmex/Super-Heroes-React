@@ -17,7 +17,7 @@ const initialForm: Hero = {
 export function CreateHero({ title }: Props) {
   const dispatch = useAppDispatch();
 
-  const { show, handleClose, handleOnClick } = useDisplayModal();
+  const { show, closeModal, openModal } = useDisplayModal();
   const { formData, setInputChange, clearData } = useForm<Hero>(initialForm);
   const { heroName, realName, studio } = formData;
 
@@ -25,7 +25,7 @@ export function CreateHero({ title }: Props) {
     event.preventDefault();
     dispatch(startSavingHero(formData));
     clearData();
-    handleClose();
+    closeModal();
   };
 
   return (
@@ -34,11 +34,11 @@ export function CreateHero({ title }: Props) {
         id="add-button"
         type="button"
         className="add-button"
-        onClick={handleOnClick}
+        onClick={openModal}
       >
         <span className="bi bi-plus" />
       </button>
-      <Modal centered show={show} onHide={handleClose}>
+      <Modal centered show={show} onHide={closeModal}>
         <Modal.Header closeButton>
           <Modal.Title id="modalTitle" className="text-dark">{title}</Modal.Title>
         </Modal.Header>
@@ -95,7 +95,7 @@ export function CreateHero({ title }: Props) {
             </div>
           </Modal.Body>
           <Modal.Footer>
-            <Button variant="primary" onClick={handleClose}>
+            <Button variant="primary" onClick={closeModal}>
               <span className="bi bi-x-lg" />
             </Button>
             <Button type="submit" variant="success">

@@ -18,20 +18,20 @@ export const heroesSlice = createSlice({
   name: 'heroes',
   initialState,
   reducers: {
-    startLoadingHeroes: (state) => {
+    onStartLoadingHeroes: (state) => {
       state.isLoading = true;
     },
-    setHeroes: (state, action: PayloadAction<HeroesState>) => {
+    onSetHeroes: (state, action: PayloadAction<HeroesState>) => {
       state.isLoading = false;
       state.heroes = action.payload.heroes;
     },
-    setActiveHero: (state, action: PayloadAction<HeroesState>) => {
+    onSetActiveHero: (state, action: PayloadAction<HeroesState>) => {
       state.activeHero = action.payload.activeHero;
     },
-    clearActiveHero: (state) => {
+    onClearActiveHero: (state) => {
       state.activeHero = null;
     },
-    updateHeroes: (state, action: PayloadAction<Hero>) => {
+    onUpdateHeroes: (state, action: PayloadAction<Hero>) => {
       state.heroes?.push({
         _id: action.payload._id,
         heroName: action.payload.heroName,
@@ -51,6 +51,6 @@ export const heroesSlice = createSlice({
 });
 
 export const {
-  startLoadingHeroes, setHeroes, setActiveHero, clearActiveHero,
-  updateHeroes, onDeleteHero,
+  onStartLoadingHeroes, onSetHeroes, onSetActiveHero, onClearActiveHero,
+  onUpdateHeroes, onDeleteHero,
 } = heroesSlice.actions;
