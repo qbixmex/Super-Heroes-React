@@ -12,6 +12,10 @@ const initialForm: Hero = {
   heroName: '',
   realName: '',
   studio: '',
+  gender: '',
+  image: '',
+  nationality: '',
+  powers: '',
 };
 
 export function FormModal() {
@@ -20,7 +24,7 @@ export function FormModal() {
   const [show, setShow] = useState<boolean>(false);
 
   const { formData, setFormData, setInputChange, clearData } = useForm<Hero>(initialForm);
-  const { heroName, realName, studio } = formData;
+  const { heroName, realName, studio, gender, image, nationality, powers } = formData;
 
   useEffect(() => {
     if (activeHero && !showProfile) {
@@ -70,13 +74,13 @@ export function FormModal() {
           <Modal.Body className="text-dark">
             <div className="text-dark mb-3">
               <label
-                id="heroNameLabel"
                 htmlFor="heroName"
                 className="form-label"
               >
                 Hero Name
               </label>
               <input
+                id="heroName"
                 name="heroName"
                 data-testid="heroName"
                 type="text"
@@ -94,6 +98,7 @@ export function FormModal() {
                 Real Name
               </label>
               <input
+                id="realName"
                 name="realName"
                 data-testid="realName"
                 type="text"
@@ -104,10 +109,14 @@ export function FormModal() {
               />
             </div>
             <div className="text-dark mb-3">
-              <label id="studioLabel" htmlFor="realName" className="form-label">
+              <label
+                htmlFor="studio"
+                className="form-label"
+              >
                 Studio
               </label>
               <input
+                id="studio"
                 name="studio"
                 data-testid="studio"
                 type="text"
@@ -115,6 +124,66 @@ export function FormModal() {
                 autoComplete="off"
                 onChange={setInputChange}
                 value={studio}
+              />
+            </div>
+            <div className="text-dark mb-3">
+              <label htmlFor="gender" className="form-label">
+                Gender
+              </label>
+              <input
+                id="gender"
+                name="gender"
+                data-testid="gender"
+                type="text"
+                className="form-control"
+                autoComplete="off"
+                onChange={setInputChange}
+                value={gender}
+              />
+            </div>
+            <div className="text-dark mb-3">
+              <label htmlFor="image" className="form-label">
+                Image
+              </label>
+              <input
+                id="image"
+                name="image"
+                data-testid="image"
+                type="text"
+                className="form-control"
+                autoComplete="off"
+                onChange={setInputChange}
+                value={image}
+              />
+            </div>
+            <div className="text-dark mb-3">
+              <label htmlFor="nationality" className="form-label">
+                Nationality
+              </label>
+              <input
+                id="nationality"
+                name="nationality"
+                data-testid="nationality"
+                type="text"
+                className="form-control"
+                autoComplete="off"
+                onChange={setInputChange}
+                value={nationality}
+              />
+            </div>
+            <div className="text-dark mb-3">
+              <label htmlFor="powers" className="form-label">
+                Powers
+              </label>
+              <input
+                id="powers"
+                name="powers"
+                data-testid="powers"
+                type="text"
+                className="form-control"
+                autoComplete="off"
+                onChange={setInputChange}
+                value={powers}
               />
             </div>
           </Modal.Body>
