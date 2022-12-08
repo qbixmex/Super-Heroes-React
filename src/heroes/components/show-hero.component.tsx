@@ -24,7 +24,7 @@ export function ShowHero() {
   }, [showProfile]);
 
   return (
-    <Modal centered show={show} onHide={closeModal}>
+    <Modal size="lg" show={show} onHide={closeModal}>
       <Modal.Header closeButton>
         <Modal.Title id="modalTitle" className="text-dark">
           Hero Details
@@ -44,6 +44,22 @@ export function ShowHero() {
             <tr>
               <th>Studio</th>
               <td>{ activeHero?.studio ?? '' }</td>
+            </tr>
+            <tr>
+              <th>Gender</th>
+              <td>{ activeHero?.gender ?? '' }</td>
+            </tr>
+            <tr>
+              <th className="align-middle">Image</th>
+              <td>{ activeHero?.image ?? '' }</td>
+            </tr>
+            <tr>
+              <th>Nationality</th>
+              <td>{ activeHero?.nationality ?? '' }</td>
+            </tr>
+            <tr>
+              <th className="align-middle">Powers</th>
+              <td>{ activeHero?.powers ?? '' }</td>
             </tr>
           </thead>
         </table>
