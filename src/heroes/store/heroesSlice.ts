@@ -38,12 +38,7 @@ export const heroesSlice = createSlice({
     },
     onCreateHero: (state, action: PayloadAction<Hero>) => {
       state.heroes?.unshift({
-        _id: action.payload._id,
-        heroName: action.payload.heroName,
-        realName: action.payload.realName,
-        studio: action.payload.studio,
-        createdAt: action.payload.createdAt,
-        updatedAt: action.payload.updatedAt,
+        ...action.payload,
       });
       state.activeHero = null;
     },
