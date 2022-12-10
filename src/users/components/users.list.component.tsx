@@ -54,17 +54,17 @@ export function UsersList({ users }: Props) {
       <thead>
         <tr>
           <th>Name</th>
-          <th>Email</th>
+          <th>Role</th>
           <th>&nbsp;</th>
         </tr>
       </thead>
       <tbody>
         {users.map(user => {
-          const { _id, firstName, lastName, email } = user;
+          const { _id, firstName, lastName, role } = user;
           return (
             <tr key={_id}>
               <td>{`${firstName} ${lastName}`}</td>
-              <td>{email}</td>
+              <td>{role}</td>
               <td>
                 <Button
                   variant="primary"

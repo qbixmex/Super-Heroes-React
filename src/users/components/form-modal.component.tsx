@@ -2,10 +2,7 @@ import { FormEvent, useState, useEffect } from 'react';
 import Button from 'react-bootstrap/esm/Button';
 import Modal from 'react-bootstrap/Modal';
 import { useForm } from '../hooks';
-// import {
-//   startSavingUser, RootState, onClearActiveUser, startUpdatingUser,
-// } from '../../store';
-import { onClearActiveUser, RootState } from '../../store';
+import { onClearActiveUser, RootState, startSavingUser/*,startUpdatingUser*/} from '../../store';
 import { User } from '../../interfaces';
 import { useAppDispatch, useAppSelector } from '../../hooks';
 
@@ -44,9 +41,10 @@ export function FormModal() {
 
   const handleSubmit = async (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault();
-    // if (activeUser === null) {
-    //   dispatch(startSavingUser(formData));
-    // } else {
+    if (activeUser === null) {
+      dispatch(startSavingUser(formData));
+    }
+    // else {
     //   dispatch(startUpdatingUser(formData));
     // }
     clearData();

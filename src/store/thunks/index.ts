@@ -1,2 +1,2 @@
-export * from './heroesThunks';
-export * from './usersThunks';
+export * from './heroes.thunks';
+export * from './users.thunks';

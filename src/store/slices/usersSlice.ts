@@ -36,10 +36,16 @@ export const usersSlice = createSlice({
     onClearActiveUser: (state) => {
       state.activeUser = null;
     },
+    onCreateUser: (state, action: PayloadAction<User>) => {
+      state.users?.unshift({
+        ...action.payload,
+      });
+      state.activeUser = null;
+    },
   },
 });
 
 export const {
   onStartLoadingUsers, onSetUsers, onSetActiveUser, onSetShowUserProfile,
-  onClearActiveUser,
+  onClearActiveUser, onCreateUser,
 } = usersSlice.actions;
