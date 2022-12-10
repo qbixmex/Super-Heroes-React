@@ -2,7 +2,7 @@ import { FormEvent, useState, useEffect } from 'react';
 import Button from 'react-bootstrap/esm/Button';
 import Modal from 'react-bootstrap/Modal';
 import { useForm } from '../hooks';
-import { onClearActiveUser, RootState, startSavingUser/*,startUpdatingUser*/} from '../../store';
+import { onClearActiveUser, RootState, startSavingUser, startUpdatingUser } from '../../store';
 import { User } from '../../interfaces';
 import { useAppDispatch, useAppSelector } from '../../hooks';
 
@@ -43,10 +43,9 @@ export function FormModal() {
     event.preventDefault();
     if (activeUser === null) {
       dispatch(startSavingUser(formData));
+    } else {
+      dispatch(startUpdatingUser(formData));
     }
-    // else {
-    //   dispatch(startUpdatingUser(formData));
-    // }
     clearData();
     setShow(false);
   };
@@ -175,20 +174,24 @@ export function FormModal() {
                 onChange={setInputChange}
               />
             </div>
-            <div className="text-dark mb-3">
-              <label htmlFor="image" className="form-label">
-                Password Confirmation
-              </label>
-              <input
-                id="passwordConfirmation"
-                name="passwordConfirmation"
-                data-testid="passwordConfirmation"
-                type="password"
-                className="form-control"
-                autoComplete="off"
-                onChange={setInputChange}
-              />
-            </div>
+            {
+              (!activeUser) && (
+                <div className="text-dark mb-3">
+                  <label htmlFor="image" className="form-label">
+                    Password Confirmation
+                  </label>
+                  <input
+                    id="passwordConfirmation"
+                    name="passwordConfirmation"
+                    data-testid="passwordConfirmation"
+                    type="password"
+                    className="form-control"
+                    autoComplete="off"
+                    onChange={setInputChange}
+                  />
+                </div>
+              )
+            }
           </Modal.Body>
           <Modal.Footer>
             <Button variant="primary" onClick={closeModal}>

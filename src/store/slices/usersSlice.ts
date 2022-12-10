@@ -42,10 +42,19 @@ export const usersSlice = createSlice({
       });
       state.activeUser = null;
     },
+    onUpdateUser: (state, action: PayloadAction<{ updatedUser: User }>) => {
+      state.users = state.users?.map(user => {
+        if (user._id === action.payload.updatedUser._id) {
+          return action.payload.updatedUser;
+        }
+        return user;
+      });
+      state.activeUser = null;
+    },
   },
 });
 
 export const {
   onStartLoadingUsers, onSetUsers, onSetActiveUser, onSetShowUserProfile,
-  onClearActiveUser, onCreateUser,
+  onClearActiveUser, onCreateUser, onUpdateUser,
 } = usersSlice.actions;

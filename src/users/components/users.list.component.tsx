@@ -1,5 +1,5 @@
 import { Alert, Button } from 'react-bootstrap';
-// import Swal from 'sweetalert2';
+import Swal from 'sweetalert2';
 import { User } from '../../interfaces';
 import { useAppDispatch } from '../../hooks';
 import { onSetActiveUser, onSetShowUserProfile } from '../../store';
@@ -16,9 +16,9 @@ export function UsersList({ users }: Props) {
     dispatch(onSetShowUserProfile());
   };
 
-  // const handleEditUser = (user: User) => {
-  //   dispatch(onSetActiveUser({ activeUser: user }));
-  // };
+  const handleEditUser = (user: User) => {
+    dispatch(onSetActiveUser({ activeUser: user }));
+  };
 
   // const handleDelete = (id: string) => {
   //   Swal.fire({
@@ -77,7 +77,7 @@ export function UsersList({ users }: Props) {
                   variant="warning"
                   size="sm"
                   className="mx-2"
-                  // onClick={ () => handleEditHero(hero) }
+                  onClick={ () => handleEditUser(user) }
                 >
                   <span className="bi bi-pencil" />
                 </Button>
