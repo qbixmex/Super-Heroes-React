@@ -1,12 +1,12 @@
 import { FormEvent, useState, useEffect } from 'react';
 import Button from 'react-bootstrap/esm/Button';
 import Modal from 'react-bootstrap/Modal';
-
-import { useAppDispatch, useAppSelector, useForm } from '../hooks';
+import { useForm } from '../hooks';
 import {
   startSavingHero, RootState, onClearActiveHero, startUpdatingHero,
 } from '../../store';
 import { Hero } from '../../interfaces';
+import { useAppDispatch, useAppSelector } from '../../hooks';
 
 const initialForm: Hero = {
   heroName: '',

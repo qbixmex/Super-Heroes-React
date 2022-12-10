@@ -1,7 +1,7 @@
 import { Alert, Button } from 'react-bootstrap';
 import Swal from 'sweetalert2';
 import { Hero } from '../../interfaces';
-import { useAppDispatch } from '../hooks';
+import { useAppDispatch } from '../../hooks';
 import { startDeletingHero, onSetActiveHero, onSetShowHeroProfile } from '../../store';
 
 type Props = {

@@ -23,9 +23,13 @@ export const usersSlice = createSlice({
     onStartLoadingUsers: (state) => {
       state.isLoading = true;
     },
+    onSetUsers: (state, action: PayloadAction<UsersState>) => {
+      state.isLoading = false;
+      state.users = action.payload.users;
+    },
   },
 });
 
 export const {
-  onStartLoadingUsers,
+  onStartLoadingUsers, onSetUsers,
 } = usersSlice.actions;

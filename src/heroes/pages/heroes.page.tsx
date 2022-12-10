@@ -2,7 +2,7 @@ import { useEffect } from 'react';
 import { Spinner } from 'react-bootstrap';
 import { FormModal, ShowHero, HeroesList } from '../components';
 import { RootState, fetchHeroes } from '../../store';
-import { useAppDispatch, useAppSelector } from '../hooks';
+import { useAppDispatch, useAppSelector } from '../../hooks';
 
 export function HeroesPage() {
   const dispatch = useAppDispatch();
