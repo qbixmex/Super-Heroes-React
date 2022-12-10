@@ -1,6 +1,6 @@
 import { useEffect } from 'react';
 import { Spinner } from 'react-bootstrap';
-import { UsersList, ShowUser } from '../components';
+import { UsersList, ShowUser, FormModal } from '../components';
 import { RootState, fetchUsers } from '../../store';
 import { useAppDispatch, useAppSelector } from '../../hooks';
 
@@ -27,7 +27,7 @@ export function UsersPage() {
           )
         }
       </div>
-      {/* <FormModal /> */}
+      <FormModal />
       <ShowUser />
     </>
   );
