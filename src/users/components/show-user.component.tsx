@@ -2,17 +2,17 @@ import { useState, useEffect } from 'react';
 import Button from 'react-bootstrap/esm/Button';
 import Modal from 'react-bootstrap/Modal';
 import { useAppDispatch, useAppSelector } from '../../hooks';
-import { onSetShowHeroProfile, onClearActiveHero } from '../../store';
+import { onSetShowUserProfile, onClearActiveUser } from '../../store';
 
-export function ShowHero() {
+export function ShowUser() {
   const dispatch = useAppDispatch();
-  const { activeHero, showProfile } = useAppSelector((state) => state.heroes);
+  const { activeUser, showProfile } = useAppSelector((state) => state.users);
   const [show, setShow] = useState<boolean>(false);
 
   const closeModal = () => {
     setShow(false);
-    dispatch(onClearActiveHero());
-    dispatch(onSetShowHeroProfile());
+    dispatch(onClearActiveUser());
+    dispatch(onSetShowUserProfile());
   };
 
   const openModal = () => {
@@ -34,38 +34,30 @@ export function ShowHero() {
         <table className="table table-bordered mt-3">
           <tbody>
             <tr>
-              <th>Hero Name</th>
-              <td>{ activeHero?.heroName ?? '' }</td>
+              <th>First Name</th>
+              <td>{ activeUser?.firstName ?? '' }</td>
             </tr>
             <tr>
-              <th>Real Name</th>
-              <td>{ activeHero?.realName ?? '' }</td>
+              <th>Last Name</th>
+              <td>{ activeUser?.lastName ?? '' }</td>
             </tr>
             <tr>
-              <th>Studio</th>
-              <td>{ activeHero?.studio ?? '' }</td>
-            </tr>
-            <tr>
-              <th>Gender</th>
-              <td>{ activeHero?.gender ?? '' }</td>
+              <th>Email</th>
+              <td>{ activeUser?.email ?? '' }</td>
             </tr>
             <tr>
               <th className="align-middle">Image</th>
               <td>
                 {
-                  (activeHero?.image)
-                    ? `${activeHero?.image.substring(0, 35)} ...`
+                  (activeUser?.image)
+                    ? `${activeUser?.image.substring(0, 35)} ...`
                     : ''
                 }
               </td>
             </tr>
             <tr>
-              <th>Nationality</th>
-              <td>{ activeHero?.nationality ?? '' }</td>
-            </tr>
-            <tr>
-              <th className="align-middle">Powers</th>
-              <td>{ activeHero?.powers ?? '' }</td>
+              <th>Role</th>
+              <td>{ activeUser?.role ?? '' }</td>
             </tr>
           </tbody>
         </table>

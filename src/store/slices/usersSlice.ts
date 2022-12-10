@@ -27,9 +27,19 @@ export const usersSlice = createSlice({
       state.isLoading = false;
       state.users = action.payload.users;
     },
+    onSetActiveUser: (state, action: PayloadAction<UsersState>) => {
+      state.activeUser = action.payload.activeUser;
+    },
+    onSetShowUserProfile: (state) => {
+      state.showProfile = !state.showProfile;
+    },
+    onClearActiveUser: (state) => {
+      state.activeUser = null;
+    },
   },
 });
 
 export const {
-  onStartLoadingUsers, onSetUsers,
+  onStartLoadingUsers, onSetUsers, onSetActiveUser, onSetShowUserProfile,
+  onClearActiveUser,
 } = usersSlice.actions;

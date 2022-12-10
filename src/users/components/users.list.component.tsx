@@ -1,20 +1,20 @@
 import { Alert, Button } from 'react-bootstrap';
 // import Swal from 'sweetalert2';
 import { User } from '../../interfaces';
-// import { useAppDispatch } from '../../hooks';
-// import { startDeletingHero, onSetActiveHero, onSetShowHeroProfile } from '../../store';
+import { useAppDispatch } from '../../hooks';
+import { onSetActiveUser, onSetShowUserProfile } from '../../store';
 
 type Props = {
   users: User[],
 };
 
 export function UsersList({ users }: Props) {
-  // const dispatch = useAppDispatch();
+  const dispatch = useAppDispatch();
 
-  // const handleShowUser = (user: User) => {
-  //   dispatch(onSetActiveUser({ activeHero: user }));
-  //   dispatch(onSetShowUserProfile());
-  // };
+  const handleShowUser = (user: User) => {
+    dispatch(onSetActiveUser({ activeUser: user }));
+    dispatch(onSetShowUserProfile());
+  };
 
   // const handleEditUser = (user: User) => {
   //   dispatch(onSetActiveUser({ activeUser: user }));
@@ -69,7 +69,7 @@ export function UsersList({ users }: Props) {
                 <Button
                   variant="primary"
                   size="sm"
-                  // onClick={ () => handleShowHero(hero) }
+                  onClick={ () => handleShowUser(user) }
                 >
                   <span className="bi bi-eye" />
                 </Button>

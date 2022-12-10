@@ -19,7 +19,7 @@ export const fetchUsers = () => {
         //* Users Slice
         dispatch(onSetUsers({ users }));
         //* Save to Local Storage
-        localStorage.setItem('heroes', JSON.stringify(users));
+        localStorage.setItem('users', JSON.stringify(users));
       } else {
         dispatch(onSetUsers({ users: JSON.parse(localUsers) }));
       }
