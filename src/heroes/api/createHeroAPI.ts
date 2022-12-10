@@ -16,7 +16,8 @@ export async function createHero(formData: Hero): Promise<HeroData | void> {
 
   if (!response.ok) {
     const error = await response.json();
-    throw new Error(error.errors[0].msg);
+    if (error.msg) throw new Error(error.msg);
+    if (error.errors) throw new Error(error.errors[0].msg);
   }
 
   const data = await response.json() as HeroData;
