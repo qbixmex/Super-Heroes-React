@@ -1,10 +1,9 @@
 import { FormEvent, useState, useEffect } from 'react';
 import Button from 'react-bootstrap/esm/Button';
 import Modal from 'react-bootstrap/Modal';
-import { useForm } from '../hooks';
 import { onClearActiveUser, RootState, startSavingUser, startUpdatingUser } from '../../store';
 import { User } from '../../interfaces';
-import { useAppDispatch, useAppSelector } from '../../hooks';
+import { useAppDispatch, useAppSelector, useForm } from '../../hooks';
 
 const initialForm: User = {
   firstName: '',
@@ -14,12 +13,18 @@ const initialForm: User = {
   role: '',
 };
 
+const options = [
+  { value: '', text: 'Select a Role' },
+  { value: 'admin', text: 'Admin' },
+  { value: 'regular', text: 'Regular' },
+];
+
 export function FormModal() {
   const dispatch = useAppDispatch();
   const { activeUser, showProfile } = useAppSelector((state: RootState) => state.users);
   const [show, setShow] = useState<boolean>(false);
 
-  const { formData, options, setFormData, setInputChange, clearData } = useForm<User>(initialForm);
+  const { formData, setFormData, setInputChange, clearData } = useForm<User>(initialForm);
   const { firstName, lastName, email, image, role } = formData;
 
   useEffect(() => {
