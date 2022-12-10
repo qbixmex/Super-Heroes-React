@@ -2,9 +2,9 @@
 import { Dispatch } from 'redux';
 import Swal from 'sweetalert2';
 import { User } from '../../interfaces';
-import { getUsers, createUser, updateUser } from '../../users/api';
+import { getUsers, createUser, updateUser, deleteUser } from '../../users/api';
 import {
-  onStartLoadingUsers, onSetUsers, onCreateUser, onUpdateUser,
+  onStartLoadingUsers, onSetUsers, onCreateUser, onUpdateUser, onDeleteUser,
 } from '../slices';
 import { RootState as GetState } from '../store';
 
@@ -75,6 +75,33 @@ export const startUpdatingUser = (user: User) => {
           position: 'center',
           title: 'OK',
           html: 'User updated successfully',
+          icon: 'success',
+          showConfirmButton: false,
+          timer: 1500,
+        });
+      }
+    } catch (error) {
+      Swal.fire('Error', String(error), 'error');
+    }
+  };
+};
+
+export const startDeletingUser = (id: string) => {
+  return async (dispatch: Dispatch, getState: () => GetState) => {
+    try {
+      //* API CALL
+      const data = await deleteUser(id);
+      if (data?.ok) {
+        //* Users Slice
+        dispatch(onDeleteUser({ id }));
+        const { users } = getState().users;
+        //* Save to Local Storage
+        localStorage.setItem('heroes', JSON.stringify(users));
+        //* Show Notification
+        Swal.fire({
+          position: 'center',
+          title: 'OK',
+          html: 'User was deleted successfully',
           icon: 'success',
           showConfirmButton: false,
           timer: 1500,

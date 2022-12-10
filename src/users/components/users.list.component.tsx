@@ -2,7 +2,7 @@ import { Alert, Button } from 'react-bootstrap';
 import Swal from 'sweetalert2';
 import { User } from '../../interfaces';
 import { useAppDispatch } from '../../hooks';
-import { onSetActiveUser, onSetShowUserProfile } from '../../store';
+import { onSetActiveUser, onSetShowUserProfile, startDeletingUser } from '../../store';
 
 type Props = {
   users: User[],
@@ -20,26 +20,26 @@ export function UsersList({ users }: Props) {
     dispatch(onSetActiveUser({ activeUser: user }));
   };
 
-  // const handleDelete = (id: string) => {
-  //   Swal.fire({
-  //     title: 'Are you sure?',
-  //     text: "You won't be able to revert this!",
-  //     icon: 'warning',
-  //     showCancelButton: true,
-  //     confirmButtonColor: '#3085d6',
-  //     cancelButtonColor: '#d33',
-  //     confirmButtonText: 'Yes, delete it!',
-  //   }).then((result) => {
-  //     if (result.isConfirmed) {
-  //       dispatch(startDeletingUser(id));
-  //       Swal.fire(
-  //         'Deleted!',
-  //         'Hero has been deleted.',
-  //         'success',
-  //       );
-  //     }
-  //   });
-  // };
+  const handleDelete = (id: string) => {
+    Swal.fire({
+      title: 'Are you sure?',
+      text: "You won't be able to revert this!",
+      icon: 'warning',
+      showCancelButton: true,
+      confirmButtonColor: '#3085d6',
+      cancelButtonColor: '#d33',
+      confirmButtonText: 'Yes, delete it!',
+    }).then((result) => {
+      if (result.isConfirmed) {
+        dispatch(startDeletingUser(id));
+        Swal.fire(
+          'Deleted!',
+          'Hero has been deleted.',
+          'success',
+        );
+      }
+    });
+  };
 
   if (users.length === 0) {
     return (
@@ -84,7 +84,7 @@ export function UsersList({ users }: Props) {
                 <Button
                   variant="danger"
                   size="sm"
-                  // onClick={ () => _id && handleDelete(_id) }
+                  onClick={ () => _id && handleDelete(_id) }
                 >
                   <span className="bi bi-trash" />
                 </Button>

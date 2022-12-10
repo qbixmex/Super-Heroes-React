@@ -51,10 +51,15 @@ export const usersSlice = createSlice({
       });
       state.activeUser = null;
     },
+    onDeleteUser: (state, action: PayloadAction<{ id: string }>) => {
+      state.users = state.users?.filter(user => {
+        return user._id !== action.payload.id;
+      });
+    },
   },
 });
 
 export const {
   onStartLoadingUsers, onSetUsers, onSetActiveUser, onSetShowUserProfile,
-  onClearActiveUser, onCreateUser, onUpdateUser,
+  onClearActiveUser, onCreateUser, onUpdateUser, onDeleteUser,
 } = usersSlice.actions;
