@@ -4,7 +4,6 @@ import { Provider } from 'react-redux';
 import HeroesApp from './heroes-app';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import 'bootstrap-icons/font/bootstrap-icons.css';
-
 import { store } from './store/store';
 import './global.css';
 
