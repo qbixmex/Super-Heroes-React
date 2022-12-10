@@ -5,7 +5,7 @@ import Modal from 'react-bootstrap/Modal';
 import { useAppDispatch, useAppSelector, useForm } from '../hooks';
 import {
   startSavingHero, RootState, onClearActiveHero, startUpdatingHero,
-} from '../store';
+} from '../../store';
 import { Hero } from '../../interfaces';
 
 const initialForm: Hero = {

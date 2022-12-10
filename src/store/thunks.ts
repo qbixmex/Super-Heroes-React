@@ -1,12 +1,12 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
 import { Dispatch } from 'redux';
 import Swal from 'sweetalert2';
-import { getHeroes, createHero, updateHero, deleteHero } from '../api';
+import { getHeroes, createHero, updateHero, deleteHero } from '../heroes/api';
 import {
   onStartLoadingHeroes, onSetHeroes, onCreateHero, onUpdateHero, onDeleteHero,
-} from './heroesSlice';
+} from './slices/heroesSlice';
 import { RootState as GetState } from './store';
-import { Hero } from '../../interfaces';
+import { Hero } from '../interfaces';
 
 export const fetchHeroes = () => {
   return async (dispatch: Dispatch, _getState: () => GetState) => {
