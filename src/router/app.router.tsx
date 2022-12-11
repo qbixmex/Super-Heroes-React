@@ -1,10 +1,10 @@
 import { useEffect } from 'react';
 import { Route, Routes, Navigate } from 'react-router-dom';
 import { Spinner } from 'react-bootstrap';
+
+import { PublicRoutes } from './public.routes';
+import { ProtectedRoutes } from './protected.routes';
 import { useAuthStore } from '../hooks/useAuthStore';
-import { LoginPage } from '../auth/pages';
-import { HeroesRoutes } from '../heroes/routes';
-import { UsersRoutes } from '../users/routes/users.routes';
 
 export function AppRouter() {
   const { status, checkAuthToken } = useAuthStore();
@@ -25,20 +25,8 @@ export function AppRouter() {
     <Routes>
       {
         (status === 'not-authenticated')
-          ? (
-            <>
-              <Route path="/login" element={<LoginPage />} />
-              <Route path="/*" element={<Navigate to="/login" />} />
-            </>
-          )
-          : (
-            <>
-              <Route path="/*" element={<HeroesRoutes />} />
-              <Route path="/heroes/*" element={<HeroesRoutes />} />
-              <Route path="/users/*" element={<UsersRoutes />} />
-              <Route path="/*" element={<Navigate to="/" />} />
-            </>
-          )
+          ? <Route path="*" element={<PublicRoutes />} />
+          : <Route path="*" element={<ProtectedRoutes />} />
       }
     </Routes>
   );

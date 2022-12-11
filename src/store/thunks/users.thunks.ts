@@ -96,7 +96,7 @@ export const startDeletingUser = (id: string) => {
         dispatch(onDeleteUser({ id }));
         const { users } = getState().users;
         //* Save to Local Storage
-        localStorage.setItem('heroes', JSON.stringify(users));
+        localStorage.setItem('users', JSON.stringify(users));
         //* Show Notification
         Swal.fire({
           position: 'center',
