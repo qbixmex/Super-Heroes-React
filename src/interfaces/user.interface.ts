@@ -5,6 +5,8 @@ export interface User {
   email: string;
   image: string;
   role: string;
+  password?: string;
+  passwordConfirmation?: string;
   createdAt?: string;
   updatedAt?: string;
 }

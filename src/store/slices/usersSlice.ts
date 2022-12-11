@@ -7,6 +7,7 @@ export type UsersState = {
   isLoading?: boolean;
   showProfile?: boolean;
   activeUser?: null | User;
+  formSubmitted?: boolean;
 };
 
 const initialState: UsersState = {
@@ -14,6 +15,7 @@ const initialState: UsersState = {
   isLoading: false,
   showProfile: false,
   activeUser: null,
+  formSubmitted: false,
 };
 
 export const usersSlice = createSlice({
@@ -41,6 +43,7 @@ export const usersSlice = createSlice({
         ...action.payload,
       });
       state.activeUser = null;
+      state.formSubmitted = true;
     },
     onUpdateUser: (state, action: PayloadAction<{ updatedUser: User }>) => {
       state.users = state.users?.map(user => {
@@ -50,11 +53,15 @@ export const usersSlice = createSlice({
         return user;
       });
       state.activeUser = null;
+      state.formSubmitted = true;
     },
     onDeleteUser: (state, action: PayloadAction<{ id: string }>) => {
       state.users = state.users?.filter(user => {
         return user._id !== action.payload.id;
       });
+    },
+    onResetFormSubmitted: (state) => {
+      state.formSubmitted = false;
     },
     onClearUsersState: (state) => {
       state.users = [];
@@ -67,5 +74,6 @@ export const usersSlice = createSlice({
 
 export const {
   onStartLoadingUsers, onSetUsers, onSetActiveUser, onSetShowUserProfile,
-  onClearActiveUser, onCreateUser, onUpdateUser, onDeleteUser, onClearUsersState,
+  onClearActiveUser, onCreateUser, onUpdateUser, onDeleteUser,
+  onResetFormSubmitted, onClearUsersState,
 } = usersSlice.actions;

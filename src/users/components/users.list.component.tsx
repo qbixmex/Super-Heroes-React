@@ -17,7 +17,11 @@ export function UsersList({ users }: Props) {
   };
 
   const handleEditUser = (user: User) => {
-    dispatch(onSetActiveUser({ activeUser: user }));
+    dispatch(onSetActiveUser({ activeUser: {
+      ...user,
+      password: '',
+      passwordConfirmation: '',
+    } }));
   };
 
   const handleDelete = (id: string) => {

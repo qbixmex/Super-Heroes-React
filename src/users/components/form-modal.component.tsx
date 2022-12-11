@@ -1,7 +1,11 @@
 import { FormEvent, useState, useEffect } from 'react';
 import Button from 'react-bootstrap/esm/Button';
 import Modal from 'react-bootstrap/Modal';
-import { onClearActiveUser, RootState, startSavingUser, startUpdatingUser } from '../../store';
+import Swal from 'sweetalert2';
+import {
+  onClearActiveUser, RootState, startSavingUser, startUpdatingUser,
+  onResetFormSubmitted,
+} from '../../store';
 import { User } from '../../interfaces';
 import { useAppDispatch, useAppSelector, useForm } from '../../hooks';
 
@@ -11,6 +15,8 @@ const initialForm: User = {
   email: '',
   image: '',
   role: '',
+  password: '',
+  passwordConfirmation: '',
 };
 
 const options = [
@@ -21,11 +27,31 @@ const options = [
 
 export function FormModal() {
   const dispatch = useAppDispatch();
-  const { activeUser, showProfile } = useAppSelector((state: RootState) => state.users);
+
+  const {
+    activeUser,
+    showProfile,
+    formSubmitted,
+  } = useAppSelector((state: RootState) => state.users);
+
   const [show, setShow] = useState<boolean>(false);
 
-  const { formData, setFormData, setInputChange, clearData } = useForm<User>(initialForm);
-  const { firstName, lastName, email, image, role } = formData;
+  const {
+    formData,
+    setFormData,
+    setInputChange,
+    clearData,
+  } = useForm<User>(initialForm);
+
+  const {
+    firstName,
+    lastName,
+    email,
+    image,
+    role,
+    password,
+    passwordConfirmation,
+  } = formData;
 
   useEffect(() => {
     if (activeUser && !showProfile) {
@@ -33,6 +59,18 @@ export function FormModal() {
       setShow(true);
     }
   }, [activeUser, setFormData, showProfile]);
+
+  useEffect(() => {
+    if (formSubmitted) {
+      clearData();
+      setShow(false);
+    }
+    return () => {
+      if (!show) {
+        dispatch(onResetFormSubmitted());
+      }
+    };
+  }, [formSubmitted]);
 
   const closeModal = () => {
     (activeUser) && dispatch(onClearActiveUser());
@@ -46,13 +84,24 @@ export function FormModal() {
 
   const handleSubmit = async (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault();
+
+    if (!activeUser && (formData.password !== formData.passwordConfirmation)) {
+      Swal.fire({
+        title: 'Oops',
+        text: 'Password and Password Confirmation must match!',
+        icon: 'error',
+        position: 'center',
+        showCancelButton: false,
+        timer: 2000,
+      });
+      return;
+    }
+
     if (activeUser === null) {
       dispatch(startSavingUser(formData));
     } else {
       dispatch(startUpdatingUser(formData));
     }
-    clearData();
-    setShow(false);
   };
 
   return (
@@ -177,6 +226,7 @@ export function FormModal() {
                 className="form-control"
                 autoComplete="off"
                 onChange={setInputChange}
+                value={password}
               />
             </div>
             {
@@ -193,6 +243,7 @@ export function FormModal() {
                     className="form-control"
                     autoComplete="off"
                     onChange={setInputChange}
+                    value={passwordConfirmation}
                   />
                 </div>
               )

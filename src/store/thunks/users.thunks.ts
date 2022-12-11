@@ -4,7 +4,8 @@ import Swal from 'sweetalert2';
 import { User } from '../../interfaces';
 import { getUsers, createUser, updateUser, deleteUser } from '../../users/api';
 import {
-  onStartLoadingUsers, onSetUsers, onCreateUser, onUpdateUser, onDeleteUser,
+  onStartLoadingUsers, onSetUsers, onCreateUser, onUpdateUser,
+  onDeleteUser, onResetFormSubmitted,
 } from '../slices';
 import { RootState as GetState } from '../store';
 
@@ -47,7 +48,7 @@ export const startSavingUser = (user: User) => {
         Swal.fire({
           position: 'center',
           title: 'OK',
-          html: 'USer created successfully',
+          html: 'User created successfully',
           icon: 'success',
           showConfirmButton: false,
           timer: 1500,
