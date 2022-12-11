@@ -51,13 +51,7 @@ export function ShowHero() {
             </tr>
             <tr>
               <th className="align-middle">Image</th>
-              <td>
-                {
-                  (activeHero?.image)
-                    ? `${activeHero?.image.substring(0, 35)} ...`
-                    : ''
-                }
-              </td>
+              <td>{ activeHero?.image }</td>
             </tr>
             <tr>
               <th>Nationality</th>

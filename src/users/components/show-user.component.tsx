@@ -47,13 +47,7 @@ export function ShowUser() {
             </tr>
             <tr>
               <th className="align-middle">Image</th>
-              <td>
-                {
-                  (activeUser?.image)
-                    ? `${activeUser?.image.substring(0, 35)} ...`
-                    : ''
-                }
-              </td>
+              <td>{ activeUser?.image }</td>
             </tr>
             <tr>
               <th>Role</th>
