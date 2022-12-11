@@ -1,3 +1,4 @@
+import { getEnvironmentVariables } from '../../helpers';
 import { Hero } from '../../interfaces';
 
 type HeroesData = {
@@ -6,12 +7,14 @@ type HeroesData = {
   total: number;
 };
 
+const { VITE_API_URL } = getEnvironmentVariables();
+
 export const getHeroes = async (): Promise<HeroesData> => {
   const response = await fetch(
-    'http://localhost:3000/api/v1/heroes?limit=100',
+    `${VITE_API_URL}/heroes?limit=100`,
     {
       headers: {
-        'x-token': 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1aWQiOiI2MzkzNjBiMjc0ZTY3NDkxYWVmNmJmMmYiLCJuYW1lIjoiTWljaGFlbCBKYWNrc29uIiwiaWF0IjoxNjcwNjg4NDk3LCJleHAiOjE2NzA2OTIwOTd9.vRaZRE_CzciqRdQdMrhfr7fSG4kSbfpuAVBzXIzDx_c',
+        'x-token': localStorage.getItem('token') ?? '',
       },
     },
   );

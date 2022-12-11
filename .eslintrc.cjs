@@ -36,5 +36,6 @@ module.exports = {
     '@typescript-eslint/no-non-null-assertion': 0,
     'no-underscore-dangle': 0,
     '@typescript-eslint/naming-convention': 0,
+    'react-hooks/exhaustive-deps': 0,
   },
 };

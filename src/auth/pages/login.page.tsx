@@ -1,25 +1,33 @@
-import { FormEvent } from 'react';
+import { FormEvent, useEffect } from 'react';
 import Button from 'react-bootstrap/Button';
 import Card from 'react-bootstrap/Card';
-import { useForm } from '../../hooks';
+import Swal from 'sweetalert2';
+import { useAuthStore, useForm } from '../../hooks';
+import { Login } from '../../interfaces';
 import './login.css';
 
-type Login = {
-  email: string;
-  password: string;
-};
-
-const initialForm: Login = {
-  email: '',
-  password: '',
+const loginFormFields: Login = {
+  email: 'stan-lee@marvel.com',
+  password: 'secret-password',
 };
 
 export function LoginPage() {
-  const { formData, setInputChange } = useForm<Login>(initialForm);
+  const { errorMessage, startLogin } = useAuthStore();
+  const { email, password, setInputChange } = useForm<Login>(loginFormFields);
+
+  useEffect(() => {
+    if (errorMessage !== undefined) {
+      Swal.fire({
+        title: 'Oops',
+        text: errorMessage.substring(7),
+        icon: 'error',
+      });
+    }
+  }, [errorMessage]);
 
   const onSubmit = (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault();
-    console.log(formData);
+    startLogin({ email, password });
   };
 
   return (
@@ -37,7 +45,7 @@ export function LoginPage() {
                 className="form-control"
                 autoComplete="off"
                 onChange={setInputChange}
-                value={formData.email}
+                value={email}
               />
             </div>
             <div className="text-dark mb-3">
@@ -50,7 +58,7 @@ export function LoginPage() {
                 className="form-control"
                 autoComplete="off"
                 onChange={setInputChange}
-                value={formData.password}
+                value={password}
               />
             </div>
             <div className="d-flex justify-content-end">

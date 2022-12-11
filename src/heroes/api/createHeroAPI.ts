@@ -1,3 +1,4 @@
+import { getEnvironmentVariables } from '../../helpers';
 import { Hero } from '../../interfaces';
 
 type HeroData = {
@@ -5,11 +6,14 @@ type HeroData = {
   hero: Hero;
 };
 
+const { VITE_API_URL } = getEnvironmentVariables();
+
 export async function createHero(formData: Hero): Promise<HeroData | void> {
-  const response = await fetch('http://localhost:3000/api/v1/heroes', {
+  const response = await fetch(`${VITE_API_URL}/heroes`, {
     method: 'POST',
     headers: {
       'Content-Type': 'application/json',
+      'x-token': localStorage.getItem('token') ?? '',
     },
     body: JSON.stringify(formData),
   });

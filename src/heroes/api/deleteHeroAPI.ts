@@ -1,9 +1,17 @@
+import { getEnvironmentVariables } from '../../helpers';
 import { HeroData } from '../../interfaces';
+
+const { VITE_API_URL } = getEnvironmentVariables();
 
 export async function deleteHero(id: string): Promise<HeroData | void> {
   const response = await fetch(
-    `http://localhost:3000/api/v1/heroes/${id}`,
-    { method: 'DELETE' },
+    `${VITE_API_URL}/heroes/${id}`,
+    {
+      method: 'DELETE',
+      headers: {
+        'x-token': localStorage.getItem('token') ?? '',
+      },
+    },
   );
 
   if (!response.ok) {

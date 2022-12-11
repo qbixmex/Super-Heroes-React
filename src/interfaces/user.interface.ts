@@ -13,3 +13,8 @@ export interface UserData {
   ok: boolean;
   user: User;
 }
+
+export interface AuthUser {
+  name: string;
+  uid: string;
+}

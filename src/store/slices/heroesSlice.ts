@@ -56,10 +56,16 @@ export const heroesSlice = createSlice({
         return hero._id !== action.payload.id;
       });
     },
+    onClearHeroesState: (state) => {
+      state.heroes = [];
+      state.isLoading = false;
+      state.showProfile = false;
+      state.activeHero = null;
+    },
   },
 });
 
 export const {
   onStartLoadingHeroes, onSetHeroes, onSetActiveHero, onSetShowHeroProfile,
-  onClearActiveHero, onCreateHero, onUpdateHero, onDeleteHero,
+  onClearActiveHero, onCreateHero, onUpdateHero, onDeleteHero, onClearHeroesState,
 } = heroesSlice.actions;

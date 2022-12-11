@@ -1,3 +1,4 @@
+import { getEnvironmentVariables } from '../../helpers';
 import { User } from '../../interfaces';
 
 type UserData = {
@@ -5,12 +6,14 @@ type UserData = {
   user: User;
 };
 
+const { VITE_API_URL } = getEnvironmentVariables();
+
 export async function updateUser(formData: User): Promise<UserData | void> {
-  const response = await fetch(`http://localhost:3000/api/v1/users/${formData._id}`, {
+  const response = await fetch(`${VITE_API_URL}/users/${formData._id}`, {
     method: 'PATCH',
     headers: {
       'Content-Type': 'application/json',
-      'x-token': 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1aWQiOiI2MzkzNjBiMjc0ZTY3NDkxYWVmNmJmMmYiLCJuYW1lIjoiTWljaGFlbCBKYWNrc29uIiwiaWF0IjoxNjcwNjg4NDk3LCJleHAiOjE2NzA2OTIwOTd9.vRaZRE_CzciqRdQdMrhfr7fSG4kSbfpuAVBzXIzDx_c',
+      'x-token': localStorage.getItem('token') ?? '',
     },
     body: JSON.stringify(formData),
   });

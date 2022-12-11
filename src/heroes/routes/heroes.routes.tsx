@@ -1,7 +1,6 @@
-import { Routes, Route } from 'react-router-dom';
+import { Routes, Route, Navigate } from 'react-router-dom';
 import { Navigation } from '../../layout/navigation';
 import { HeroesPage } from '../pages';
-import { NotFoundPage } from '../pages/not.found.page';
 
 export function HeroesRoutes() {
   return (
@@ -9,7 +8,7 @@ export function HeroesRoutes() {
       <Navigation />
       <Routes>
         <Route path="/" element={<HeroesPage />} />
-        <Route path="*" element={<NotFoundPage />} />
+        <Route path="*" element={<Navigate to="/" />} />
       </Routes>
     </>
   );
