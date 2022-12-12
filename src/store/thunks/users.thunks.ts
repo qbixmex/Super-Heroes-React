@@ -54,6 +54,9 @@ export const startSavingUser = (user: User) => {
           timer: 1500,
         });
       }
+      setTimeout(() => {
+        dispatch(onResetFormSubmitted());
+      }, 1600);
     } catch (error) {
       Swal.fire('Error', String(error), 'error');
     }
@@ -81,6 +84,9 @@ export const startUpdatingUser = (user: User) => {
           timer: 1500,
         });
       }
+      setTimeout(() => {
+        dispatch(onResetFormSubmitted());
+      }, 1600);
     } catch (error) {
       Swal.fire('Error', String(error), 'error');
     }

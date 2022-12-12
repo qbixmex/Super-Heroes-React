@@ -4,7 +4,6 @@ import Modal from 'react-bootstrap/Modal';
 import Swal from 'sweetalert2';
 import {
   onClearActiveUser, RootState, startSavingUser, startUpdatingUser,
-  onResetFormSubmitted,
 } from '../../store';
 import { User } from '../../interfaces';
 import { useAppDispatch, useAppSelector, useForm } from '../../hooks';
@@ -65,11 +64,6 @@ export function FormModal() {
       clearData();
       setShow(false);
     }
-    return () => {
-      if (!show) {
-        dispatch(onResetFormSubmitted());
-      }
-    };
   }, [formSubmitted]);
 
   const closeModal = () => {
