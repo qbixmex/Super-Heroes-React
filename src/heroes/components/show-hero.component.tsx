@@ -51,7 +51,14 @@ export function ShowHero() {
             </tr>
             <tr>
               <th className="align-middle">Image</th>
-              <td>{ activeHero?.image }</td>
+              <td>
+                <img
+                  className="img-fluid"
+                  crossOrigin="anonymous"
+                  src={ activeHero?.image }
+                  alt={ activeHero?.heroName }
+                />
+              </td>
             </tr>
             <tr>
               <th>Nationality</th>

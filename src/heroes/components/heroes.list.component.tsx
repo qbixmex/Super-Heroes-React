@@ -3,16 +3,24 @@ import Swal from 'sweetalert2';
 import { Hero } from '../../interfaces';
 import { useAppDispatch } from '../../hooks';
 import { startDeletingHero, onSetActiveHero, onSetShowHeroProfile } from '../../store';
+import { getEnvironmentVariables } from '../../helpers';
 
 type Props = {
   heroes: Hero[],
 };
 
+const { VITE_API_URL } = getEnvironmentVariables();
+
 export function HeroesList({ heroes }: Props) {
   const dispatch = useAppDispatch();
 
   const handleShowHero = (hero: Hero) => {
-    dispatch(onSetActiveHero({ activeHero: hero }));
+    dispatch(onSetActiveHero({
+      activeHero: {
+        ...hero,
+        image: `${VITE_API_URL}/heroes/image/${hero._id}`,
+      },
+    }));
     dispatch(onSetShowHeroProfile());
   };
   const handleEditHero = (hero: Hero) => {
