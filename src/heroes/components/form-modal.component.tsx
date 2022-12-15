@@ -12,7 +12,7 @@ const initialForm: Hero = {
   realName: '',
   studio: '',
   gender: '',
-  image: '',
+  image: null,
   nationality: '',
   powers: '',
 };
@@ -23,7 +23,7 @@ export function FormModal() {
   const [show, setShow] = useState<boolean>(false);
 
   const { formData, setFormData, setInputChange, clearData } = useForm<Hero>(initialForm);
-  const { heroName, realName, studio, gender, image, nationality, powers } = formData;
+  const { heroName, realName, studio, gender, nationality, powers } = formData;
 
   useEffect(() => {
     if (activeHero && !showProfile) {
@@ -69,7 +69,7 @@ export function FormModal() {
             { (!activeHero) ? 'Create Hero' : 'Update Hero' }
           </Modal.Title>
         </Modal.Header>
-        <form onSubmit={handleSubmit}>
+        <form onSubmit={handleSubmit} encType="multipart/form-data">
           <Modal.Body className="text-dark">
             <div className="text-dark mb-3">
               <label
@@ -148,11 +148,10 @@ export function FormModal() {
                 id="image"
                 name="image"
                 data-testid="image"
-                type="text"
+                type="file"
                 className="form-control"
                 autoComplete="off"
                 onChange={setInputChange}
-                value={image}
               />
             </div>
             <div className="text-dark mb-3">

@@ -4,7 +4,7 @@ export interface Hero {
   realName: string;
   studio: string;
   gender: string;
-  image: string;
+  image: File | null;
   nationality: string;
   powers: string;
   createdAt?: string;
