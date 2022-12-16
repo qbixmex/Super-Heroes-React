@@ -54,8 +54,7 @@ export function ShowHero() {
               <td>
                 <img
                   className="img-fluid"
-                  crossOrigin="anonymous"
-                  src={ activeHero?.image }
+                  src={ String(activeHero?.image) }
                   alt={ activeHero?.heroName }
                 />
               </td>
