@@ -47,7 +47,13 @@ export function ShowUser() {
             </tr>
             <tr>
               <th className="align-middle">Image</th>
-              <td>{ activeUser?.image }</td>
+              <td>
+                <img
+                  className="img-fluid"
+                  src={ activeUser?.image }
+                  alt={ `${activeUser?.firstName} ${activeUser?.lastName}` }
+                />
+              </td>
             </tr>
             <tr>
               <th>Role</th>
