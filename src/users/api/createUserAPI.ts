@@ -9,13 +9,21 @@ type UserData = {
 const { VITE_API_URL } = getEnvironmentVariables();
 
 export async function createUser(formData: User): Promise<UserData | void> {
+  const dataObject = new FormData();
+
+  dataObject.append('firstName', formData.firstName);
+  dataObject.append('lastName', formData.lastName);
+  dataObject.append('email', formData.email);
+  dataObject.append('password', formData.password as string);
+  dataObject.append('image', formData.image as File);
+  dataObject.append('role', formData.role);
+
   const response = await fetch(`${VITE_API_URL}/users`, {
     method: 'POST',
     headers: {
-      'Content-Type': 'application/json',
       'x-token': localStorage.getItem('token') ?? '',
     },
-    body: JSON.stringify(formData),
+    body: dataObject,
   });
 
   if (!response.ok) {

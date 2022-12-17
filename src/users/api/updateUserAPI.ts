@@ -9,13 +9,21 @@ type UserData = {
 const { VITE_API_URL } = getEnvironmentVariables();
 
 export async function updateUser(formData: User): Promise<UserData | void> {
+  const dataObject = new FormData();
+
+  dataObject.append('firstName', formData.firstName);
+  dataObject.append('lastName', formData.lastName);
+  dataObject.append('email', formData.email);
+  formData.password && dataObject.append('password', formData.password as string);
+  formData.image && dataObject.append('image', formData.image as File);
+  dataObject.append('role', formData.role);
+
   const response = await fetch(`${VITE_API_URL}/users/${formData._id}`, {
     method: 'PATCH',
     headers: {
-      'Content-Type': 'application/json',
       'x-token': localStorage.getItem('token') ?? '',
     },
-    body: JSON.stringify(formData),
+    body: dataObject,
   });
 
   if (!response.ok) {

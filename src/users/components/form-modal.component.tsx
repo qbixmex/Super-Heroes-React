@@ -12,7 +12,7 @@ const initialForm: User = {
   firstName: '',
   lastName: '',
   email: '',
-  image: '',
+  image: null,
   role: '',
   password: '',
   passwordConfirmation: '',
@@ -46,7 +46,6 @@ export function FormModal() {
     firstName,
     lastName,
     email,
-    image,
     role,
     password,
     passwordConfirmation,
@@ -114,7 +113,7 @@ export function FormModal() {
             { (!activeUser) ? 'Create User' : 'Update User' }
           </Modal.Title>
         </Modal.Header>
-        <form onSubmit={handleSubmit}>
+        <form onSubmit={handleSubmit} encType="multipart/form-data">
           <Modal.Body className="text-dark">
             <div className="text-dark mb-3">
               <label
@@ -178,11 +177,9 @@ export function FormModal() {
                 id="image"
                 name="image"
                 data-testid="image"
-                type="text"
+                type="file"
                 className="form-control"
-                autoComplete="off"
                 onChange={setInputChange}
-                value={image}
               />
             </div>
             <div className="text-dark mb-3">

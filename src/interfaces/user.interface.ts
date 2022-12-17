@@ -3,7 +3,7 @@ export interface User {
   firstName: string;
   lastName: string;
   email: string;
-  image: string;
+  image: File | string | null;
   role: string;
   password?: string;
   passwordConfirmation?: string;

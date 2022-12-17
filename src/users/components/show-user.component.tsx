@@ -50,7 +50,7 @@ export function ShowUser() {
               <td>
                 <img
                   className="img-fluid"
-                  src={ activeUser?.image }
+                  src={ activeUser?.image as string }
                   alt={ `${activeUser?.firstName} ${activeUser?.lastName}` }
                 />
               </td>

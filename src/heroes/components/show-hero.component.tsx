@@ -54,7 +54,7 @@ export function ShowHero() {
               <td>
                 <img
                   className="img-fluid"
-                  src={ String(activeHero?.image) }
+                  src={ activeHero?.image as string }
                   alt={ activeHero?.heroName }
                 />
               </td>
