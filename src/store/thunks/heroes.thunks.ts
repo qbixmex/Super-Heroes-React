@@ -4,7 +4,7 @@ import Swal from 'sweetalert2';
 import { getHeroes, createHero, updateHero, deleteHero } from '../../heroes/api';
 import {
   onStartLoadingHeroes, onSetHeroes, onCreateHero, onUpdateHero,
-  onSetSavingHero, onDeleteHero,
+  onSetSavingHero, onDeleteHero, onResetHeroFormSubmitted,
 } from '../slices/heroesSlice';
 import { RootState as GetState } from '../store';
 import { Hero } from '../../interfaces';
@@ -53,7 +53,11 @@ export const startSavingHero = (hero: Hero) => {
           timer: 1500,
         });
       }
+      setTimeout(() => {
+        dispatch(onResetHeroFormSubmitted());
+      }, 1600);
     } catch (error) {
+      dispatch(onSetSavingHero());
       Swal.fire('Error', String(error), 'error');
     }
   };
@@ -82,7 +86,11 @@ export const startUpdatingHero = (hero: Hero) => {
           timer: 1500,
         });
       }
+      setTimeout(() => {
+        dispatch(onResetHeroFormSubmitted());
+      }, 1600);
     } catch (error) {
+      dispatch(onSetSavingHero());
       Swal.fire('Error', String(error), 'error');
     }
   };

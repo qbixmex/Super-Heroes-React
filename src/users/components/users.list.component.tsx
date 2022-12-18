@@ -12,7 +12,7 @@ export function UsersList({ users }: Props) {
   const dispatch = useAppDispatch();
 
   const handleShowUser = (user: User) => {
-    dispatch(onSetActiveUser({ activeUser: user }));
+    dispatch(onSetActiveUser({ activeUser: { ...user } }));
     dispatch(onSetShowUserProfile());
   };
 

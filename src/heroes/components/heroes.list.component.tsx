@@ -17,6 +17,7 @@ export function HeroesList({ heroes }: Props) {
     }));
     dispatch(onSetShowHeroProfile());
   };
+
   const handleEditHero = (hero: Hero) => {
     dispatch(onSetActiveHero({ activeHero: hero }));
   };

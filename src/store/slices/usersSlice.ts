@@ -5,6 +5,7 @@ import { User } from '../../interfaces';
 export type UsersState = {
   users?: User[];
   isLoading?: boolean;
+  isSaving?: boolean;
   showProfile?: boolean;
   activeUser?: null | User;
   formSubmitted?: boolean;
@@ -13,6 +14,7 @@ export type UsersState = {
 const initialState: UsersState = {
   users: [],
   isLoading: false,
+  isSaving: false,
   showProfile: false,
   activeUser: null,
   formSubmitted: false,
@@ -38,12 +40,16 @@ export const usersSlice = createSlice({
     onClearActiveUser: (state) => {
       state.activeUser = null;
     },
+    onSavingUser: (state) => {
+      state.isSaving = !state.isSaving;
+    },
     onCreateUser: (state, action: PayloadAction<User>) => {
       state.users?.unshift({
         ...action.payload,
       });
       state.activeUser = null;
       state.formSubmitted = true;
+      state.isSaving = false;
     },
     onUpdateUser: (state, action: PayloadAction<{ updatedUser: User }>) => {
       state.users = state.users?.map(user => {
@@ -54,13 +60,14 @@ export const usersSlice = createSlice({
       });
       state.activeUser = null;
       state.formSubmitted = true;
+      state.isSaving = false;
     },
     onDeleteUser: (state, action: PayloadAction<{ id: string }>) => {
       state.users = state.users?.filter(user => {
         return user._id !== action.payload.id;
       });
     },
-    onResetFormSubmitted: (state) => {
+    onResetUserFormSubmitted: (state) => {
       state.formSubmitted = false;
     },
     onClearUsersState: (state) => {
@@ -75,5 +82,5 @@ export const usersSlice = createSlice({
 export const {
   onStartLoadingUsers, onSetUsers, onSetActiveUser, onSetShowUserProfile,
   onClearActiveUser, onCreateUser, onUpdateUser, onDeleteUser,
-  onResetFormSubmitted, onClearUsersState,
+  onSavingUser, onResetUserFormSubmitted, onClearUsersState,
 } = usersSlice.actions;

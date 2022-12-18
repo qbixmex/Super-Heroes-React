@@ -31,9 +31,13 @@ export function HeroesPage() {
       </div>
       <FormModal />
       <ShowHero />
-      <div className="spinner-wrapper" style={{ display: isSaving ? 'flex' : 'none' }}>
-        <Spinner className="" variant="info" />
-      </div>
+      {
+        (isSaving) && (
+          <div className="spinner-wrapper">
+            <Spinner variant="info" />
+          </div>
+        )
+      }
     </div>
   );
 }

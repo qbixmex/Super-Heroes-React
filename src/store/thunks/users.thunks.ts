@@ -5,7 +5,7 @@ import { User } from '../../interfaces';
 import { getUsers, createUser, updateUser, deleteUser } from '../../users/api';
 import {
   onStartLoadingUsers, onSetUsers, onCreateUser, onUpdateUser,
-  onDeleteUser, onResetFormSubmitted,
+  onDeleteUser, onSavingUser, onResetUserFormSubmitted,
 } from '../slices';
 import { RootState as GetState } from '../store';
 
@@ -35,6 +35,8 @@ export const fetchUsers = () => {
 
 export const startSavingUser = (user: User) => {
   return async (dispatch: Dispatch, getState: () => GetState) => {
+    //* For displaying spinner feedback
+    dispatch(onSavingUser());
     try {
       //* API CALL
       const data = await createUser(user);
@@ -55,9 +57,10 @@ export const startSavingUser = (user: User) => {
         });
       }
       setTimeout(() => {
-        dispatch(onResetFormSubmitted());
+        dispatch(onResetUserFormSubmitted());
       }, 1600);
     } catch (error) {
+      dispatch(onSavingUser());
       Swal.fire('Error', String(error), 'error');
     }
   };
@@ -65,6 +68,8 @@ export const startSavingUser = (user: User) => {
 
 export const startUpdatingUser = (user: User) => {
   return async (dispatch: Dispatch, getState: () => GetState) => {
+    //* For displaying spinner feedback
+    dispatch(onSavingUser());
     try {
       //* API CALL
       const data = await updateUser(user);
@@ -85,9 +90,10 @@ export const startUpdatingUser = (user: User) => {
         });
       }
       setTimeout(() => {
-        dispatch(onResetFormSubmitted());
+        dispatch(onResetUserFormSubmitted());
       }, 1600);
     } catch (error) {
+      dispatch(onSavingUser());
       Swal.fire('Error', String(error), 'error');
     }
   };

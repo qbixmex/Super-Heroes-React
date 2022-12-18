@@ -8,6 +8,7 @@ export type HeroesState = {
   isSaving?: boolean;
   showProfile?: boolean;
   activeHero?: null | Hero;
+  formSubmitted?: boolean;
 };
 
 const initialState: HeroesState = {
@@ -16,6 +17,7 @@ const initialState: HeroesState = {
   isSaving: false,
   showProfile: false,
   activeHero: null,
+  formSubmitted: false,
 };
 
 export const heroesSlice = createSlice({
@@ -39,13 +41,14 @@ export const heroesSlice = createSlice({
       state.activeHero = null;
     },
     onSetSavingHero: (state) => {
-      state.isSaving = true;
+      state.isSaving = !state.isSaving;
     },
     onCreateHero: (state, action: PayloadAction<Hero>) => {
       state.heroes?.unshift({
         ...action.payload,
       });
       state.activeHero = null;
+      state.formSubmitted = true;
       state.isSaving = false;
     },
     onUpdateHero: (state, action: PayloadAction<{ updatedHero: Hero }>) => {
@@ -56,12 +59,16 @@ export const heroesSlice = createSlice({
         return hero;
       });
       state.activeHero = null;
+      state.formSubmitted = true;
       state.isSaving = false;
     },
     onDeleteHero: (state, action: PayloadAction<{ id: string }>) => {
       state.heroes = state.heroes?.filter(hero => {
         return hero._id !== action.payload.id;
       });
+    },
+    onResetHeroFormSubmitted: (state) => {
+      state.formSubmitted = false;
     },
     onClearHeroesState: (state) => {
       state.heroes = [];
@@ -76,5 +83,5 @@ export const heroesSlice = createSlice({
 export const {
   onStartLoadingHeroes, onSetHeroes, onSetActiveHero, onSetShowHeroProfile,
   onClearActiveHero, onSetSavingHero, onCreateHero, onUpdateHero, onDeleteHero,
-  onClearHeroesState,
+  onResetHeroFormSubmitted, onClearHeroesState,
 } = heroesSlice.actions;

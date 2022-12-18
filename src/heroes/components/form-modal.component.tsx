@@ -21,7 +21,11 @@ const initialForm: Hero = {
 
 export function FormModal() {
   const dispatch = useAppDispatch();
-  const { activeHero, showProfile } = useAppSelector((state: RootState) => state.heroes);
+  const {
+    activeHero,
+    showProfile,
+    formSubmitted,
+  } = useAppSelector((state: RootState) => state.heroes);
   const [show, setShow] = useState<boolean>(false);
 
   const { formData, setFormData, setInputChange, clearData } = useForm<Hero>(initialForm);
@@ -33,6 +37,13 @@ export function FormModal() {
       setShow(true);
     }
   }, [activeHero, setFormData, showProfile]);
+
+  useEffect(() => {
+    if (formSubmitted) {
+      clearData();
+      setShow(false);
+    }
+  }, [formSubmitted]);
 
   const closeModal = () => {
     (activeHero) && dispatch(onClearActiveHero());
@@ -51,8 +62,6 @@ export function FormModal() {
     } else {
       dispatch(startUpdatingHero(formData));
     }
-    clearData();
-    setShow(false);
   };
 
   return (
