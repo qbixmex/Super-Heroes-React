@@ -33,11 +33,6 @@ export function HeroesList({ heroes }: Props) {
     }).then((result) => {
       if (result.isConfirmed) {
         dispatch(startDeletingHero(id));
-        Swal.fire(
-          'Deleted!',
-          'Hero has been deleted.',
-          'success',
-        );
       }
     });
   };

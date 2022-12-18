@@ -36,11 +36,6 @@ export function UsersList({ users }: Props) {
     }).then((result) => {
       if (result.isConfirmed) {
         dispatch(startDeletingUser(id));
-        Swal.fire(
-          'Deleted!',
-          'Hero has been deleted.',
-          'success',
-        );
       }
     });
   };

@@ -111,7 +111,7 @@ export const startDeletingUser = (id: string) => {
           html: 'User was deleted successfully',
           icon: 'success',
           showConfirmButton: false,
-          timer: 1500,
+          timer: 2000,
         });
       }
     } catch (error) {
