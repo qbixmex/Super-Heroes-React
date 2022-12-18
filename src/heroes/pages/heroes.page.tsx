@@ -8,7 +8,7 @@ import './heroes.page.css';
 
 export function HeroesPage() {
   const dispatch = useAppDispatch();
-  const { heroes, isLoading } = useAppSelector((state: RootState) => state.heroes);
+  const { heroes, isLoading, isSaving } = useAppSelector((state: RootState) => state.heroes);
 
   useEffect(() => {
     dispatch(fetchHeroes());
@@ -31,6 +31,9 @@ export function HeroesPage() {
       </div>
       <FormModal />
       <ShowHero />
+      <div className="spinner-wrapper" style={{ display: isSaving ? 'flex' : 'none' }}>
+        <Spinner className="" variant="info" />
+      </div>
     </div>
   );
 }

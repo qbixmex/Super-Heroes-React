@@ -3,7 +3,8 @@ import { Dispatch } from 'redux';
 import Swal from 'sweetalert2';
 import { getHeroes, createHero, updateHero, deleteHero } from '../../heroes/api';
 import {
-  onStartLoadingHeroes, onSetHeroes, onCreateHero, onUpdateHero, onDeleteHero,
+  onStartLoadingHeroes, onSetHeroes, onCreateHero, onUpdateHero,
+  onSetSavingHero, onDeleteHero,
 } from '../slices/heroesSlice';
 import { RootState as GetState } from '../store';
 import { Hero } from '../../interfaces';
@@ -31,13 +32,18 @@ export const fetchHeroes = () => {
 
 export const startSavingHero = (hero: Hero) => {
   return async (dispatch: Dispatch, getState: () => GetState) => {
+    //* To show spinner feedback to user
+    dispatch(onSetSavingHero());
     try {
-      // Call API Endpoint
+      //* Call API Endpoint
       const data = await createHero(hero);
       if (data?.hero) {
+        //* Add hero to heroes list storage
         dispatch(onCreateHero(data.hero));
+        //* Update heroes list to Local Storage
         const { heroes } = getState().heroes;
         localStorage.setItem('heroes', JSON.stringify(heroes));
+        //* Show confirmation feedback
         Swal.fire({
           position: 'center',
           title: 'OK',
@@ -55,13 +61,18 @@ export const startSavingHero = (hero: Hero) => {
 
 export const startUpdatingHero = (hero: Hero) => {
   return async (dispatch: Dispatch, getState: () => GetState) => {
+    //* To show spinner feedback to user
+    dispatch(onSetSavingHero());
     try {
-      // Call API Endpoint
+      //* Call API Endpoint
       const data = await updateHero(hero);
       if (data?.hero) {
+        //* Update hero to heroes list storage
         dispatch(onUpdateHero({ updatedHero: data.hero }));
         const { heroes } = getState().heroes;
+        //* Update hero to heroes list storage
         localStorage.setItem('heroes', JSON.stringify(heroes));
+        //* Show confirmation feedback
         Swal.fire({
           position: 'center',
           title: 'OK',
@@ -86,6 +97,7 @@ export const startDeletingHero = (id: string) => {
         dispatch(onDeleteHero({ id }));
         const { heroes } = getState().heroes;
         localStorage.setItem('heroes', JSON.stringify(heroes));
+        //* Launch feedback response from server to user
         Swal.fire({
           position: 'center',
           title: 'OK',
@@ -96,6 +108,7 @@ export const startDeletingHero = (id: string) => {
         });
       }
     } catch (error) {
+      //* Launch feedback response from server to user
       Swal.fire('Error', String(error), 'error');
     }
   };

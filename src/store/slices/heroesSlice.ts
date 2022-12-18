@@ -5,6 +5,7 @@ import { Hero } from '../../interfaces';
 export type HeroesState = {
   heroes?: Hero[];
   isLoading?: boolean;
+  isSaving?: boolean;
   showProfile?: boolean;
   activeHero?: null | Hero;
 };
@@ -12,6 +13,7 @@ export type HeroesState = {
 const initialState: HeroesState = {
   heroes: [],
   isLoading: false,
+  isSaving: false,
   showProfile: false,
   activeHero: null,
 };
@@ -36,11 +38,15 @@ export const heroesSlice = createSlice({
     onClearActiveHero: (state) => {
       state.activeHero = null;
     },
+    onSetSavingHero: (state) => {
+      state.isSaving = true;
+    },
     onCreateHero: (state, action: PayloadAction<Hero>) => {
       state.heroes?.unshift({
         ...action.payload,
       });
       state.activeHero = null;
+      state.isSaving = false;
     },
     onUpdateHero: (state, action: PayloadAction<{ updatedHero: Hero }>) => {
       state.heroes = state.heroes?.map(hero => {
@@ -50,6 +56,7 @@ export const heroesSlice = createSlice({
         return hero;
       });
       state.activeHero = null;
+      state.isSaving = false;
     },
     onDeleteHero: (state, action: PayloadAction<{ id: string }>) => {
       state.heroes = state.heroes?.filter(hero => {
@@ -59,6 +66,7 @@ export const heroesSlice = createSlice({
     onClearHeroesState: (state) => {
       state.heroes = [];
       state.isLoading = false;
+      state.isSaving = false;
       state.showProfile = false;
       state.activeHero = null;
     },
@@ -67,5 +75,6 @@ export const heroesSlice = createSlice({
 
 export const {
   onStartLoadingHeroes, onSetHeroes, onSetActiveHero, onSetShowHeroProfile,
-  onClearActiveHero, onCreateHero, onUpdateHero, onDeleteHero, onClearHeroesState,
+  onClearActiveHero, onSetSavingHero, onCreateHero, onUpdateHero, onDeleteHero,
+  onClearHeroesState,
 } = heroesSlice.actions;
