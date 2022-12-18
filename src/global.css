@@ -59,27 +59,3 @@ h1 {
 .gray-dark-700  { color: var(--gray-700); }
 .gray-dark-800  { color: var(--gray-800); }
 .gray-dark-900  { color: var(--gray-900); }
-
-.add-button {
-  position: absolute;
-  bottom: 20px;
-  right: 20px;
-  width: 50px;
-  height: 50px;
-  background-color: var(--blue);
-  color: var(--white);
-  font-size: 2.5rem;
-  border-radius: 25px;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  margin: 0;
-  font-weight: 700;
-  transition: background-color 300ms ease-in-out;
-  border: none;
-}
-
-.add-button:hover {
-  background-color: hsl(215, 95%, 50%);
-  cursor: pointer;
-}

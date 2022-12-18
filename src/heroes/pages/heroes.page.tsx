@@ -4,6 +4,8 @@ import { FormModal, ShowHero, HeroesList } from '../components';
 import { RootState, fetchHeroes } from '../../store';
 import { useAppDispatch, useAppSelector } from '../../hooks';
 
+import './heroes.page.css';
+
 export function HeroesPage() {
   const dispatch = useAppDispatch();
   const { heroes, isLoading } = useAppSelector((state: RootState) => state.heroes);
@@ -13,7 +15,7 @@ export function HeroesPage() {
   }, [dispatch]);
 
   return (
-    <>
+    <div className="wrapper">
       <div className="container">
         <h1 className="mt-2 skyblue display-1 text-center">Heroes</h1>
         <hr />
@@ -29,6 +31,6 @@ export function HeroesPage() {
       </div>
       <FormModal />
       <ShowHero />
-    </>
+    </div>
   );
 }

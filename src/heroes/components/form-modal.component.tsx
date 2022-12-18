@@ -7,6 +7,8 @@ import {
 import { Hero } from '../../interfaces';
 import { useAppDispatch, useAppSelector, useForm } from '../../hooks';
 
+import './form-modal.css';
+
 const initialForm: Hero = {
   heroName: '',
   realName: '',
@@ -55,14 +57,17 @@ export function FormModal() {
 
   return (
     <>
-      <button
-        id="add-button"
-        type="button"
-        className="add-button"
-        onClick={openModal}
-      >
-        <span className="bi bi-plus" />
-      </button>
+      <div className="add-button-container">
+        <button
+          id="add-button"
+          type="button"
+          className="add-button"
+          onClick={openModal}
+        >
+          <span className="bi bi-plus" />
+        </button>
+      </div>
+
       <Modal centered show={show} onHide={closeModal}>
         <Modal.Header closeButton>
           <Modal.Title id="modalTitle" className="text-dark">
