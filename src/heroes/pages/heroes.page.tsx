@@ -22,7 +22,7 @@ export function HeroesPage() {
         {
           (isLoading) ? (
             <div className="text-center mt-4">
-              <Spinner variant="primary" />
+              <Spinner id="spinner" variant="primary" />
             </div>
           ) : (
             <HeroesList heroes={heroes || []} />
