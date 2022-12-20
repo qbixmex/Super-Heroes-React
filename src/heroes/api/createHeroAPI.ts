@@ -8,7 +8,7 @@ type HeroData = {
 
 const { VITE_API_URL } = getEnvironmentVariables();
 
-export async function createHero(formData: Hero): Promise<HeroData | void> {
+export const createHero = async (formData: Hero): Promise<HeroData | void> => {
   const dataObject = new FormData();
 
   dataObject.append('heroName', formData.heroName);
@@ -35,4 +35,4 @@ export async function createHero(formData: Hero): Promise<HeroData | void> {
 
   const data = await response.json() as HeroData;
   return data;
-}
+};
