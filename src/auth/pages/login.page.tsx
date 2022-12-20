@@ -34,7 +34,7 @@ export function LoginPage() {
     <div className="login-page">
       <Card bg="light" text="dark" border="light">
         <Card.Body>
-          <form onSubmit={ onSubmit }>
+          <form id="login-form" onSubmit={ onSubmit }>
             <div className="text-dark mb-3">
               <label htmlFor="email" className="form-label">Email</label>
               <input
