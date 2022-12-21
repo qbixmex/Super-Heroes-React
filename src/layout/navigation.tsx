@@ -6,7 +6,7 @@ import { Button } from 'react-bootstrap';
 import { useAuthStore } from '../hooks/useAuthStore';
 
 export function Navigation() {
-  const { startLogout, user } = useAuthStore();
+  const { user, startLogout } = useAuthStore();
 
   return (
     <Navbar bg="dark" variant="dark" expand="lg">
@@ -19,10 +19,14 @@ export function Navigation() {
             <Link className="nav-link" to="/users">Users</Link>
           </Nav>
           <Nav>
-            <Navbar.Text className="me-3">
+            <Navbar.Text id="username" className="me-3">
               { user?.name }
             </Navbar.Text>
-            <Button variant="outline-light" onClick={ startLogout }>
+            <Button
+              id="logout"
+              variant="outline-light"
+              onClick={ startLogout }
+            >
               Logout
             </Button>
           </Nav>
