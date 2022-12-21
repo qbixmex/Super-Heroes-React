@@ -6,9 +6,19 @@ import { configureStore } from '@reduxjs/toolkit';
 import { FormModal } from '../../../heroes/components';
 import { authenticatedState } from '../../fixtures/authenticationStates';
 import { authSlice, usersSlice, heroesSlice } from '../../../store';
+import { Hero } from '../../../interfaces';
+
+const mockStartSavingHero = vi.fn();
+
+vi.mock('../../../store/thunks/heroes.thunks', () => ({
+  startSavingHero: (formData: Hero) => {
+    return () => mockStartSavingHero(formData);
+  },
+}));
 
 vi.mock('react-redux', async () => ({
   ...(await vi.importActual<any>('react-redux')),
+  useAppDispatch: () => (fn: any) => fn(),
 }));
 
 const store = configureStore({
@@ -48,7 +58,7 @@ describe('<FormModal />', () => {
     expect(title?.innerHTML).toBe('Create Hero');
   });
 
-  test.only('Should hide form modal if click close button', () => {
+  test('Should hide form modal if click close button', () => {
     render(
       <Provider store={store}>
         <MemoryRouter>
@@ -73,20 +83,72 @@ describe('<FormModal />', () => {
     expect(modal.parentElement).not.toHaveClass('show');
   });
 
-  test.skip('Should have form inputs', () => {
-    //* 1) Arrange
-    const addButton = container.querySelector('#add-button');
+  test('Should have form inputs', () => {
+    render(
+      <Provider store={store}>
+        <MemoryRouter>
+          <FormModal />
+        </MemoryRouter>
+      </Provider>,
+    );
 
-    //* 2) Act
-    if (addButton) fireEvent.click(addButton);
+    const addButton = screen.getByTestId('add-button');
+
+    addButton && fireEvent.click(addButton);
 
     const heroNameInput = screen.getByTestId('heroName');
     const realNameInput = screen.getByTestId('realName');
     const studioInput = screen.getByTestId('studio');
 
-    //* 3) Expect
     expect(heroNameInput).toBeDefined();
     expect(realNameInput).toBeTruthy();
     expect(studioInput).toBeTruthy();
+  });
+
+  test('Should call startUpdatingHero action', () => {
+    const newHero: Hero = {
+      heroName: 'Spiderman',
+      realName: 'Peter Parker',
+      studio: 'Marvel',
+      gender: 'male',
+      image: new File(['(⌐□_□)'], 'stan-lee.jpg', { type: 'image/jpeg' }),
+      nationality: 'American',
+      powers: 'Spider Sense, Super Strength',
+    };
+
+    render(
+      <Provider store={store}>
+        <MemoryRouter>
+          <FormModal />
+        </MemoryRouter>
+      </Provider>,
+    );
+
+    const addButton = screen.getByTestId('add-button');
+
+    addButton && fireEvent.click(addButton);
+
+    const form = screen.getByTestId('form');
+    const heroNameInput = screen.getByTestId('heroName');
+    const realNameInput = screen.getByTestId('realName');
+    const studioInput = screen.getByTestId('studio');
+    const genderInput = screen.getByTestId('gender');
+    const imageInput = screen.getByTestId('image');
+    const nationalityInput = screen.getByTestId('nationality');
+    const powersInput = screen.getByTestId('powers');
+
+    //* Put Values to form
+    fireEvent.change(heroNameInput, { target: { name: 'heroName', value: newHero.heroName } });
+    fireEvent.change(realNameInput, { target: { name: 'realName', value: newHero.realName } });
+    fireEvent.change(studioInput, { target: { name: 'studio', value: newHero.studio } });
+    fireEvent.change(genderInput, { target: { name: 'gender', value: newHero.gender } });
+    fireEvent.change(imageInput, { target: { name: 'image', files: [newHero.image] } });
+    fireEvent.change(nationalityInput, { target: { name: 'nationality', value: newHero.nationality } });
+    fireEvent.change(powersInput, { target: { name: 'powers', value: newHero.powers } });
+
+    //* Submit the form
+    fireEvent.submit(form);
+
+    expect(mockStartSavingHero).toHaveBeenCalledWith(newHero);
   });
 });

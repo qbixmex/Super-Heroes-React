@@ -83,7 +83,7 @@ export function FormModal() {
             { (!activeHero) ? 'Create Hero' : 'Update Hero' }
           </Modal.Title>
         </Modal.Header>
-        <form onSubmit={handleSubmit} encType="multipart/form-data">
+        <form data-testid="form" onSubmit={handleSubmit} encType="multipart/form-data">
           <Modal.Body className="text-dark">
             <div className="text-dark mb-3">
               <label
