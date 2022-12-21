@@ -24,9 +24,9 @@ export function ShowHero() {
   }, [showProfile]);
 
   return (
-    <Modal size="lg" show={show} onHide={closeModal}>
+    <Modal data-testid="modal" size="lg" show={show} onHide={closeModal}>
       <Modal.Header closeButton>
-        <Modal.Title id="modalTitle" className="text-dark">
+        <Modal.Title data-testid="modal-title" className="text-dark">
           Hero Details
         </Modal.Title>
       </Modal.Header>
@@ -53,6 +53,7 @@ export function ShowHero() {
               <th className="align-middle">Image</th>
               <td>
                 <img
+                  data-testid="image"
                   className="img-fluid"
                   src={ activeHero?.image as string }
                   alt={ activeHero?.heroName }
@@ -72,6 +73,7 @@ export function ShowHero() {
       </Modal.Body>
       <Modal.Footer>
         <Button
+          data-testid="close-btn"
           variant="primary"
           onClick={closeModal}
         >
