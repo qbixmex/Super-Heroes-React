@@ -68,7 +68,7 @@ export function FormModal() {
     <>
       <div className="add-button-container">
         <button
-          id="add-button"
+          data-testid="add-button"
           type="button"
           className="add-button"
           onClick={openModal}
@@ -77,9 +77,9 @@ export function FormModal() {
         </button>
       </div>
 
-      <Modal centered show={show} onHide={closeModal}>
+      <Modal data-testid="modal" centered show={show} onHide={closeModal}>
         <Modal.Header closeButton>
-          <Modal.Title id="modalTitle" className="text-dark">
+          <Modal.Title data-testid="modal-title" className="text-dark">
             { (!activeHero) ? 'Create Hero' : 'Update Hero' }
           </Modal.Title>
         </Modal.Header>
@@ -200,10 +200,10 @@ export function FormModal() {
             </div>
           </Modal.Body>
           <Modal.Footer>
-            <Button variant="primary" onClick={closeModal}>
+            <Button data-testid="close-btn" variant="primary" onClick={closeModal}>
               <span className="bi bi-x-lg" />
             </Button>
-            <Button type="submit" variant="success">
+            <Button data-testid="submit-btn" type="submit" variant="success">
               <span className="bi bi-save" />
             </Button>
           </Modal.Footer>

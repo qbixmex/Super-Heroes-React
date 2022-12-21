@@ -1,4 +1,4 @@
-import { Hero } from '../../../interfaces';
+import { Hero } from '../../interfaces';
 
 export const heroes: Hero[] = [
   {

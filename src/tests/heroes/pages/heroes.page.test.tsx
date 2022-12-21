@@ -1,6 +1,6 @@
 import { describe, test } from 'vitest';
 import { render } from '@testing-library/react';
-import { HeroesPage } from './heroes.page';
+import { HeroesPage } from '../../../heroes/pages/heroes.page';
 
 describe('Test on <HeroesPage />', () => {
   let container: HTMLElement;

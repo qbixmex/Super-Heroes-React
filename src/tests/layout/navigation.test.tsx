@@ -53,6 +53,6 @@ describe('Test on <Navigation />', () => {
 
     logoutBtn && fireEvent.click(logoutBtn);
 
-    expect(mockStartLogout).toHaveBeenCalled();
+    expect(mockStartLogout).toHaveBeenCalledWith();
   });
 });
