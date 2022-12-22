@@ -20,6 +20,10 @@ const store = configureStore({
 });
 
 describe('Tests on <ShowHero />', () => {
+  beforeEach(() => {
+    vi.clearAllMocks();
+  });
+
   test('Should show modal with data preloaded', () => {
     render(
       <Provider store={store}>

@@ -87,6 +87,7 @@ export function FormModal() {
           <Modal.Body className="text-dark">
             <div className="text-dark mb-3">
               <label
+                data-testid="heroNameLabel"
                 htmlFor="heroName"
                 className="form-label"
               >
@@ -105,6 +106,7 @@ export function FormModal() {
             </div>
             <div className="text-dark mb-3">
               <label
+                data-testid="realNameLabel"
                 htmlFor="realName"
                 className="form-label"
               >
@@ -123,6 +125,7 @@ export function FormModal() {
             </div>
             <div className="text-dark mb-3">
               <label
+                data-testid="studioLabel"
                 htmlFor="studio"
                 className="form-label"
               >
@@ -140,7 +143,11 @@ export function FormModal() {
               />
             </div>
             <div className="text-dark mb-3">
-              <label htmlFor="gender" className="form-label">
+              <label
+                data-testid="genderLabel"
+                htmlFor="gender"
+                className="form-label"
+              >
                 Gender
               </label>
               <input
@@ -155,7 +162,11 @@ export function FormModal() {
               />
             </div>
             <div className="text-dark mb-3">
-              <label htmlFor="image" className="form-label">
+              <label
+                data-testid="imageLabel"
+                htmlFor="image"
+                className="form-label"
+              >
                 Image
               </label>
               <input
@@ -169,7 +180,11 @@ export function FormModal() {
               />
             </div>
             <div className="text-dark mb-3">
-              <label htmlFor="nationality" className="form-label">
+              <label
+                data-testid="nationalityLabel"
+                htmlFor="nationality"
+                className="form-label"
+              >
                 Nationality
               </label>
               <input
@@ -184,7 +199,11 @@ export function FormModal() {
               />
             </div>
             <div className="text-dark mb-3">
-              <label htmlFor="powers" className="form-label">
+              <label
+                data-testid="powersLabel"
+                htmlFor="powers"
+                className="form-label"
+              >
                 Powers
               </label>
               <input

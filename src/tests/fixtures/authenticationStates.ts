@@ -22,7 +22,7 @@ export const activeHeroState = {
   heroes: [],
   isLoading: false,
   isSaving: false,
-  showProfile: true,
+  showProfile: false,
   activeHero: {
     _id: '6386c276866dc450ba45a133',
     heroName: 'Batman',
